@@ -4,57 +4,47 @@
             class="table-box box-shadow-card" 
             element-loading-text="系统拼命加载中..." 
            >
-           <!-- <header class="clearfix" padding>
+           <header class="clearfix" padding>
                 <div class=" fl">
                     <button 
-                        class="kgw-btn" 
-                        v-if="(activeTab === '1|4') && isDelete"
+                        class="lcf-btn" 
                         type="text" 
                         @click="deleteClick">
                         <i class="iconfont">&#xe69d;</i>批量删除
                     </button>
                 </div>
-                <div class="fr">
-                    <button 
-                        class="kgw-btn" 
-                        type="primary"
-                        @click="dialogVisible=true">
-                        <i class="iconfont">&#xe6ac;</i>
-                        搜索
-                    </button>
-                    <!-- <button 
-                        v-if="activeTab === '1|4' || activeTab === '2|22|23'"
-                        class="kgw-btn-theme" 
-                        type="text">
-                        <i class="iconfont">&#xe6ae;</i>
-                        统一提交
-                    </button> -->
-                <!--</div>-->
-            <!--</header>-->
+            </header>
             <el-table 
                 :data="tableData" 
                 border 
-                :height="556"  
+                :height="500"  
                 ref="multipleTable" 
                 @header-dragend="getTableHeaderWidth" 
                 @selection-change="handleSelectionChange" 
                 style="width: 100%">
-
-                <el-table-column
-                    label=" "
-                    prop="indexId"
-                    align="center"
-                    fixed
-                    width="30">
-                </el-table-column>
-
                 <el-table-column 
                     type="selection" 
                     align="center"
                     fixed 
                     width="46">
                 </el-table-column>
-
+                <el-table-column 
+                    label=" " 
+                    type="index" 
+                    align="center" 
+                    :width="36">
+                </el-table-column>
+                <el-table-column 
+                    label="操作" 
+                    align="center" 
+                    :width="40">
+                    <template slot-scope="scope">
+                        <div class="table-i-box">
+                            <i class="el-icon-plus table-color-info" title="添加"></i>
+                            <i class="el-icon-delete2 table-color-info" title="删除" ></i>
+                        </div>
+                    </template>
+                </el-table-column>
                 <el-table-column 
                     v-for="(i, index) in tableTh" 
                     :key="index" 
@@ -160,10 +150,9 @@
             paginationCurrentClick(){
 
             },
-           
-            
-           
-                
+            deleteClick(){
+
+            }
         },
         computed: {
            
@@ -173,15 +162,22 @@
         },
         created() {
            this.userInfo();
-            
         },
-        
-        
     }
 </script>
 
 <style lang="scss" scoped>
-  
+  header{
+      background: #fff;
+      height: 36px;
+      line-height: 36px;
+      font-size: 12px;
+      .lcf-btn{
+           color: $-color-theme-bg;
+           background-color: #fff; 
+      }
+  }
+
 </style>
 
 

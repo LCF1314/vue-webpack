@@ -1,4 +1,4 @@
-.el-table .cell {white-space: nowrap!important; padding: 0;}
+.el-table .cell {white-space: nowrap!important; padding: 0 !important;}
 
 // table相关
 .el-table{
@@ -12,16 +12,12 @@
         background-color: #f4f4f4!important;
     }
     .sell{height: 100%}
-    .el-table td{height: 36px}
     input{color: $-color-theme;border:0;border-radius: 0;}
     .el-table__empty-block{width: 100%!important}
-    th, td{height: 30px!important;}
-    /* .el-input.is-disabled .el-input__inner {
-        color: #494949;
-        &::-webkit-input-placeholder{
-            color: #494949
-        }
-    } */
+    th, td{
+        padding: 6px 0;
+    }
+    
     // 选中颜色
     .el-table__body tr.current-row > td{
         background: #fffde9
@@ -57,49 +53,6 @@
     &::-moz-placeholder{color:#96A1BB;}
     &:-moz-placeholder{color:#96A1BB;}
 }
-// .nav-custom {
-//     .el-form-item {
-//         margin-bottom: 16px;
-//         display: inline-block;
-//         width: 280px;
-//         margin-right: 40px !important; 
-//     }
-//     .el-form-item.notes{
-//         width: 100%;
-//     }
-//     .bg-purple {
-//         .el-form-item {
-//             width: 100%;
-//         }
-//     }
-//         //labe样式
-//     .el-form-item__label {
-//         height: 28px;
-//         padding: 6px 12px 11px 0;
-//         padding-right: 0;
-//         color: $-color-label;
-//         overflow: hidden;
-//         text-overflow: ellipsis;
-//         white-space:nowrap;
-//     }
-//     .el-form-item__content {
-//         line-height: 28px;
-//         height: 28px;
-//         margin-left: 80px !important;
-//     }
-//     .el-input__inner{
-//         height: 28px;
-//         line-height: 28px;
-//     }
-//     .extColumns {
-//         .el-form-item {
-//             margin-bottom: 16px;
-//             display: inline-block;
-//             width: 280px;
-//             margin-right: 40px !important; 
-//         }
-//     }
-// }
 
 .el-form-item__label {
     padding-right: 0;
@@ -115,50 +68,6 @@
         min-width: 100%;
     }
 }
-
-
-// 弹出框
-/*.el-message-box{
-    text-align: center;
-    .el-message-box__header{
-        display: block;
-    }
-    .el-message-box__content{
-        padding: 10px 20px;        
-    }
-    .el-message-box__btns{
-        text-align: center;
-        .el-button{
-            padding: 8px 28px;        
-        }
-        .el-button--primary{
-            background: $-color-danger; border-color: $-color-danger
-        }
-    }
-    .el-message-box__status.el-icon-warning {
-        position: relative; transform: none; margin-bottom: 10px; font-size: 40px!important;
-        +.el-message-box__message{margin-left: 0!important}
-    }
-}*/
-
-
-/*模拟生产  select 宽度*/
-.wh-box-item {
-    .el-form-item__content {
-        width: calc(100% - 50px);
-    }
-    .el-select .el-input .el-input__icon {
-        top: 20px;
-    }
-    /*.el-input__icon {
-        right: 14px;  
-    }*/
-}
-//
-.el-select {
-    width: 100%;
-}
-
 //上传组件tip
 .el-upload__tip {
     display: inline-block;
@@ -301,18 +210,11 @@
         background: inherit!important; border: none; color: #333;
     }
 }
-.login-input-box{
-    .el-input__inner{
-        margin-left: 20px; border: none;
-    }
-}
-
 .bom-input {
     .el-input__inner {
         border: 1px solid #d8dce5;
     }
 }
-
 
 // 分页器
 .el-pagination{
@@ -333,67 +235,19 @@
         border: 0; border-radius: 0; width: 90%; margin: 10px 0 10px 5%;
     }
 }
- .current-first{
-     .el-tree-node{
-         pointer-events: none;
-     }
-     .el-tree-node.is-current{
-         pointer-events: auto;
-     }
- }
+.current-first{
+    .el-tree-node{
+        pointer-events: none;
+    }
+    .el-tree-node.is-current{
+        pointer-events: auto;
+    }
+}
 // 日期选择器
 .el-date-editor.is-disabled{
     .el-input__icon {display: none}
 }
 
-// 表单
-.el-form {
-    .el-form-item {
-        margin-bottom: 10px;
-        
-    }
-}
-
-.turnToModel,.expandBomModal {
-    .el-form-item__content {
-        line-height: 36px;
-        margin-left: 80px !important;
-    }
-    .el-dialog{
-        //top:10% !important;
-    }
-    .el-form-item {
-        margin-bottom: 10px;
-    }
-    .el-pagination {
-        padding-bottom: 0;
-    }
-    .el-date-editor--daterange.el-input {
-        width: 98%;
-    }
-    .el-date-range-picker {
-        left: 600px !important;
-    }
-}
-
-// tabs
-.sys-tabs { 
-    &.el-tabs {
-        background: none;
-    }
-    &.el-tabs--card > .el-tabs__header .el-tabs__item.is-active {
-        border: 0;
-        background: #fff;
-        border-radius: 10px 10px 0 0;
-        color: #000;
-    } 
-    &.el-tabs--card > .el-tabs__header .el-tabs__item{
-        transition: none;
-    }
-    .el-tabs__header {
-        border: 0;
-    }
-}
 
 // 穿梭框
 .transfer-user-set{
@@ -408,16 +262,7 @@
     }
 }
 
-// 媒体查询适应屏幕
-@media screen and (max-width: 1440px){
-    // 表单
-    .el-form {
-        .el-form-item {
-            margin-bottom: 4px;
-            
-        }
-    }   
-}
+
 .el-table--border th, .el-table--border td {
     border-right: 1px solid rgb(191, 200, 217);
 }
