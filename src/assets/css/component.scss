@@ -1,0 +1,74 @@
+@import './theme.scss';
+.kgw-btn {
+    cursor: pointer; padding: 0 16px; box-sizing: border-box; background: #f2f2ea; display: inline-block;
+    i {
+        margin-right: 4px;
+    }
+    +.kgw-btn{
+        margin-left: 14px;
+    }
+    &[type=text] {
+        padding: 0; background: inherit; 
+    }
+    &[type=primary] {
+        color: #fff; background: $-color-theme; border-radius: 4px; padding: 2px 4px;
+    }
+    &[border] {
+        border-radius: 10px; border: 1px solid #c8c8c8; color: #494949; background: inherit; padding: 4px 20px; cursor: pointer; /* margin-left: 12px; */
+        &[type=danger] {
+            color: $-color-danger; 
+            &:hover{
+                color: $-color-danger!important; border-color: #c8c8c8!important
+            }
+        }
+        &[type=success] {
+            color: $-color-success; 
+            &:hover{
+                color: $-color-success!important; border-color: #c8c8c8!important
+            }
+        }
+        &:hover{
+            color: $-color-theme!important; border-color: $-color-theme!important
+        }
+    }
+    
+    &:hover{
+        opacity: .8;
+    }
+}
+// 批量添加按钮
+.kgw-btn-addAll {
+    background: $-color-success; color: #fff; height: inherit; cursor: pointer; padding: 0 6px; 
+    .iconfont {
+        margin-right: 4px;
+    }
+}
+//button{}
+.kgw-btn-success {
+    @extend .kgw-btn;
+    background: $-color-success;
+    color: #fff;
+    &[type=text] {
+        background: inherit;
+        color: $-color-success;   
+    }
+    &[type=primary] {
+        padding: 5px 20px; border-radius: 10px; background: $-color-success;
+    }
+    &[border] {
+        border-color: $-color-success;  
+    }
+}
+.kgw-btn-theme {
+    @extend .kgw-btn;
+    color: $-color-theme;
+}
+.kgw-btn-danger {
+    @extend .kgw-btn;
+    background: $-color-danger;
+    color: #fff;
+    &[type=text] {
+        background: inherit;
+        color: $-color-danger;  
+    }
+}

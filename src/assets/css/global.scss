@@ -1,0 +1,50 @@
+@import './theme.scss';
+#appContent{
+    height: 100%;
+}
+#app-content{
+    padding: 20px !important;
+    height: 100%;
+    background-color: #e9ecf0 !important;
+}
+
+/* 
+ * 功能性
+ */
+// 浮动
+.fl{float: left}
+.fr{float: right}
+.clearfix{
+    //display: table;
+    &:after{
+        content: '';
+        display: block;
+        height: 0;
+        clear: both;
+        visibility: hidden
+    }
+}
+
+/*
+ * 具名类
+ */
+.p-e-n{pointer-events: none};  // 此属性不会响应鼠标事件;
+.disable{cursor: not-allowed!important; color: rgb(191, 203, 217); background: inherit};
+.text-align-center{text-align: center};
+.box-shadow-card{
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .12), 0 0 6px 0 rgba(0, 0, 0, .04);
+}
+.danger{color: $-color-danger}
+.theme{color: $-color-theme}
+.disableColor{color: $-color-disable}
+.text-overflow {  
+    display: block;/*内联对象需加*/   
+    word-break: keep-all;/* 不换行 */   
+    white-space: nowrap;/* 不换行 */  
+    overflow: hidden;/* 内容超出宽度时隐藏超出部分的内容 */   
+    text-overflow: ellipsis;/* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
+}
+
+.error{
+    color: $-color-error;
+}
