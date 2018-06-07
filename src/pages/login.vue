@@ -91,10 +91,12 @@
                 this.fromData.repassword = '';
             },
             userBlurFn(){
+                if(!this.fromData.username) return;
                 const userPattern = /^[\u4E00-\u9FA5]{2,6}$/;
                 this.isUsername = userPattern.test(this.fromData.username);  
             },
             passBlurFn(){
+                if(!this.fromData.password) return;
                 const regPassword = /^[A-Za-z0-9]{6,16}$/;  
                 this.isPassword = regPassword.test(this.fromData.password);  
             },
@@ -178,7 +180,6 @@
                     },1000)
                 }else{
                     this.btnLoading = false;
-                    this.data = _data;
                     _data.type = 'error';
                     this.isShowErr = true;
                     this.tips(_data);
