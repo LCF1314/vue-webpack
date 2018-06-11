@@ -190,7 +190,7 @@
 <style lang="scss" scoped>
    *, *:before, *:after {-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;-webkit-text-size-adjust: none;}
     .subnav-box {
-        position: fixed; height: 40px; line-height: 40px; width: 100%; z-index: 98; background: #ffffff; color: #494949;top: 60px; transition: top .4s;font-size: 14px;
+        position: fixed; height: 40px; line-height: 40px; width: 100%; z-index: 1001; background: #ffffff; color: #494949;top: 60px; transition: top .4s;font-size: 14px;
     }
     .subnav {
         position: relative; padding: 0 74px 0 45px;

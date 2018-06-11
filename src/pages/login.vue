@@ -27,13 +27,13 @@
                         <span>用户名：</span>
                         <input type="text" @blur = "userBlurFn" v-model="fromData.username" placeholder="请输入用户名">
                         <p class="error" v-if="isUsername && ((!fromData.username && isShowErr) || data.code == 5)" v-html="data.message && data.code == 5 ? data.message:  '用户名不能为空！&nbsp;&nbsp;&nbsp;&nbsp;'"></p>
-                        <p class="error" v-if="!isUsername" >用户名必须由2-6个汉字组成</p>
+                        <p class="error" v-if="!isUsername && fromData.username" >用户名必须由2-6个汉字组成</p>
                     </div> 
                     <div class="password">
                         <span>密&nbsp;&nbsp;&nbsp;&nbsp;码：</span>
                         <input type="password" @blur = "passBlurFn" v-model="fromData.password" placeholder="请输入密码">
                         <p class="error" v-if="isPassword && ((!fromData.password && isShowErr) || data.code == 0)" v-html="data.message && data.code == 0 ?data.message: '密码不能为空！&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' "></p>
-                        <p class="error" v-if="!isPassword" >密码必须由 6-16位字母、数字组成</p>
+                        <p class="error" v-if="!isPassword && fromData.password" >密码必须由 6-16位字母、数字组成</p>
                     </div>
                     <div class="password">
                         <span>验证密码：</span>
@@ -102,7 +102,7 @@
             },
             // 注册
             async registerFn(){
-                if(!this.isUsername || !this.isPassword) return;
+                // if(!this.isUsername || !this.isPassword) return;
                 this.btnLoading = true;
                 
                 if(!this.fromData.username || !this.fromData.password || !this.fromData.repassword || (this.fromData.repassword != this.fromData.password)) {

@@ -95,7 +95,7 @@ export default {
     width: 180px;
     height: 100%;
     overflow: hidden;
-    z-index: 100;
+    z-index: 1002;
     background-color: $-color-theme-menu;
     h3{
       height: 40px;

@@ -54,7 +54,7 @@ export default {
         }).catch(() => {
           this.$message({
             type: 'info',
-            message: '已取消退出'
+            message: '已取消退出。'
           });
         });
       
@@ -71,7 +71,7 @@ export default {
         position: fixed;
         top: 0;
         left: 0;
-        z-index: 1000;
+        z-index: 1001;
         width: 100%;
         height: 60px;
         background-color: $-color-theme;
