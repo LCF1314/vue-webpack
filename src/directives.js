@@ -8,7 +8,7 @@ Vue.directive('empty', {
     bind(el, binding, vnode, oldVnode) {
         const EMPTY_BLOCK = el.querySelector('.el-table__empty-block');
         const CONTENT = document.createElement('div');
-        CONTENT.className = 'kgw-table-empty-box';
+        CONTENT.className = 'lcf-table-empty-box';
 
         const i = document.createElement('i');
         i.className = 'iconfont';
