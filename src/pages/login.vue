@@ -18,7 +18,7 @@
                     </div>
                     <el-button type="primary" @click = "loginFn" :loading="btnLoading">登录</el-button>
                 </div>
-                <div class="nowRegister" @click="nowRegister">立即注册</div>
+                <!--<div class="nowRegister" @click="nowRegister">立即注册</div>-->
             </div>
             <div class="register" v-if="!isLogin">
                 <h3>注册</h3>

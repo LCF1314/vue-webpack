@@ -50,5 +50,31 @@
 }
 
 .lcf-btn{
-    color: $-color-theme-menu;
+    height: 36px;
+    line-height: 36px;
+    display: block;
+    color: #fff;
+    background: $-color-theme-bg;
+    padding: 0 10px;
+    
+    cursor: pointer;
+}
+.lcf-btn-save{
+    background: #e9ecf0;
+    padding: 4px 20px;
+    border-radius: 12px; 
+    border: 1px solid #c8c8c8;
+    color: #494949;
+    cursor: pointer;
+    font-size: 12px;
+    .iconfont{
+        font-size: 14px;
+        vertical-align: middle;
+        margin-right: 4px;
+    }
+    &:hover{
+        border: 1px solid $-color-theme-bg;
+        color: $-color-theme-bg;
+    }
+    margin-right: 10px;
 }

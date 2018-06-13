@@ -176,7 +176,7 @@ const components = [
         component: SelectStorageName
     },
     {
-        name: 'kgw-checkbox',
+        name: 'lcf-checkbox',
         component: checkboxComp
     },
     {

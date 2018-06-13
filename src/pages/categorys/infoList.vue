@@ -6,6 +6,12 @@
             <button 
                 class="lcf-btn-save" 
                 type="text" 
+                @click="createFn">
+                <i class="iconfont">&#xe78a;</i>新增
+            </button>
+            <button 
+                class="lcf-btn-save" 
+                type="text" 
                 @click="saveFn">
                 <i class="iconfont">&#xe789;</i>保存
             </button>
@@ -66,13 +72,22 @@
                     :width="i.width"
                     :prop="i.columnName">
                     <template  slot-scope="scope">
-                        <el-checkbox v-if="i.columnName == 'isAdmin'" v-model="scope.row[i.columnName]" :disabled="true"></el-checkbox>
                         <el-input 
-                            v-else-if="i.columnName == 'password'"
+                            v-if="i.columnName == 'categoryName'"
                             v-model="scope.row[i.columnName]" 
                             :placeholder="i.columnViewName"
                             :disabled="!scope.row.edit">
                         </el-input>
+                        <el-input 
+                            v-else-if="i.columnName == 'notes'"
+                            v-model="scope.row[i.columnName]" 
+                            :placeholder="i.columnViewName"
+                            :disabled="!scope.row.edit">
+                        </el-input>
+                        <span 
+                            v-else-if="i.columnName == 'counts'"
+                            v-text="scope.row[i.columnName] || 0" 
+                            :class="{'table-color-disable': !scope.row[i.columnName]}"></span>
                         <span 
                             v-else
                             v-text="scope.row[i.columnName] || $lcf.appEmptyPlaceholder" 
@@ -106,65 +121,56 @@
                 formData: {
                     pageSize: 10,
                 },
+                tableItemTPL:{
+                    categoryName: '',
+                    addTime: '',
+                    counts: 0,
+                    notes: '',
+                    id: '',
+                    edit: true,
+                    userId: JSON.parse(localStorage.getItem('userInfo'))._id,
+                },
                 selectionData: [],
                 tableThisRow: null,
                 currentPage: 1,
                 tableTh: [
                     {
-                        columnViewName: '用户名',
-                        columnName: 'username',
+                        columnViewName: '分类名',
+                        columnName: 'categoryName',
                         width: 120,
                     },
                     {
-                        columnViewName: '密码',
-                        columnName: 'password',
-                        width: 120,
-                    
-                    },
-                    {
-                        columnViewName: '是否是管理员',
-                        columnName: 'isAdmin',
+                        columnViewName: '备注',
+                        columnName: 'notes',
                         width: 120,
                     
                     },
                     {
-                        columnViewName: '注册时间',
+                        columnViewName: '内容条数',
+                        columnName: 'counts',
+                        width: 120,
+                    
+                    },
+                    {
+                        columnViewName: '创建时间',
                         columnName: 'addTime',
                         width: 180,
                     
-                    },
-                    {
-                        columnViewName: '上次登录时间',
-                        columnName: 'lastLoginTime',
-                        width: 180,
-                    
-                    },
-                    {
-                        columnViewName: '登录次数',
-                        columnName: 'loginCounts',
-                        width: 120,
-                    
-                    },
-                    {
-                        columnViewName: '登录IP',
-                        columnName: 'loginIp',
-                        width: 120,
                     },
                 ]
             }
         },
         methods: {
             // 登录
-            async userInfo(){
+            async categoryInfo(){
                 this.loading = true;
-                let _data = await this.$http('post', '/user/userInfo');
+                let _data = await this.$http('post', '/categorys/infoList');
                 if(_data.status == 200){
                     _data.data.forEach((item , index) => {
                         this.$set(item, 'indexOf', index + 1);
-                        item.lastLoginTime = this.$lcf.$DC.formatDates(item.lastLoginTime);
+                        log(item.addTime)
                         item.addTime = this.$lcf.$DC.formatDates(item.addTime);
                         this.$set(item, 'edit', false);
-                        // item.isAdmin =  item.isAdmin ? '是' : '否';
                     })
                     this.totalCount = _data.data.length;
                     this.tableData = _data.data;
@@ -182,6 +188,16 @@
             },
             paginationCurrentClick(){
 
+            },
+            createFn(){
+                if(this.tableData.some(item => {return item.edit})) {
+                    this.$message({
+                        message: '请先保存已编辑的分类信息!!!',
+                        type: 'warning',
+                    });
+                    return
+                };
+                this.tableData.unshift(JSON.parse(JSON.stringify(this.tableItemTPL)));
             },
             deleteClick(){
                 if(this.selectionData.length === 0){
@@ -206,13 +222,12 @@
                 });
             },
             async bulkDelete(){
-                
                 this.selectionData = this.selectionData.filter(item => {
                     return !item.isAdmin;
                 }).map(item => {
                     return item._id;
                 })
-                let _data = await this.$http('post', '/user/bulkDelete', {ids: this.selectionData});
+                let _data = await this.$http('post', '/categorys/bulkDelete', {ids: this.selectionData});
                 if(_data.status == 200){
                     this.$message({
                         message: _data.data.message,
@@ -220,7 +235,7 @@
                     });
                     this.loading = true;
                     setTimeout(() => {
-                        this.userInfo();
+                        this.categoryInfo();
                     }, 200)
                 }
             },
@@ -243,7 +258,23 @@
                 row.edit = true;
             },
             async deleteFn(row, index){
-                let _data = await this.$http('post', '/user/delete', {_id: row._id});
+                this.$confirm('删除后没有保存, 且不可恢复, 是否确定删除?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning',
+                    center: true
+                }).then(() => {
+                   this.delete(row);
+                }).catch(() => {
+                   this.$message({
+                        message: '已取消删除。',
+                        type: 'info',
+                    });
+                });
+                
+            },
+            async delete(row){
+                let _data = await this.$http('post', '/categorys/delete', {_id: row._id});
                 if(_data.status == 200){
                     this.$message({
                         message: _data.data.message,
@@ -251,13 +282,22 @@
                     });
                     this.loading = true;
                     setTimeout(() => {
-                        this.userInfo();
+                        this.categoryInfo();
                     }, 200)
                 }
             },
             async saveFn(){
                 if(!this.tableThisRow || !this.tableThisRow.edit) return;
-                let _data = await this.$http('post', '/user/update', this.tableThisRow);
+                let url = '/categorys/update' 
+                const tableThisRow = JSON.parse(JSON.stringify(this.tableThisRow));
+                
+                if(!this.tableThisRow._id){
+                    url = '/categorys/create';
+                    if(!tableThisRow.addTime){
+                        tableThisRow.addTime = this.$lcf.$DC.formatDates();
+                    }
+                }
+                let _data = await this.$http('post', url, tableThisRow);
                 if(_data.status == 200){
                     this.$message({
                         message: _data.data.message,
@@ -265,7 +305,7 @@
                     });
                     this.loading = true;
                     setTimeout(() => {
-                        this.userInfo();
+                        this.categoryInfo();
                     }, 200)
                 }
             }
@@ -285,7 +325,7 @@
             
         },
         created() {
-           this.userInfo();
+           this.categoryInfo();
         },
     }
 </script>

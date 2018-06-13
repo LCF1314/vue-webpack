@@ -4,7 +4,9 @@
         <Menu></Menu>
         <content-subnav class="appContent-view-nav appContent-view-open" :class="{'appContent-view-close': !appMenuOpen}"></content-subnav>
         <div class="appContent-view appContent-view-open" :class="{'appContent-view-close': !appMenuOpen}">
-            <router-view ></router-view>
+            <keep-alive>
+                <router-view ></router-view>
+            </keep-alive>
         </div>
     </section>
 </template>

@@ -8,7 +8,7 @@ export default {
         {
             name:"技术栈",
             iconfont: "&#xe635;",
-            link:'/appContent/loading1'
+            link:'/appContent/InfoList'
         },
         {
             name:"用户列表",

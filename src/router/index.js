@@ -8,10 +8,11 @@ const ADDRESS = '/';
  */
 // const index = resolve => require(['../pages/index'], resolve);
 const appContent = resolve => require(['../pages/appContent'], resolve);
-const index = resolve => require(['../pages/index'], resolve);
+const Index = resolve => require(['../pages/index'], resolve);
 const Login = resolve => require(['../pages/login'], resolve);
 const loading = resolve => require(['../pages/loading'], resolve);
-const userInfo = resolve => require(['../pages/users/userInfo'], resolve);
+const UserInfo = resolve => require(['../pages/users/UserInfo'], resolve);
+const InfoList = resolve => require(['../pages/categorys/infoList'], resolve);
 // const mainContent = resolve => require(['../pages/mainContent.vue'], resolve);
 
 Vue.use(Router);
@@ -37,47 +38,47 @@ export default new Router({
         {
             path: `index`,
             name: '首页',
-            component: index,
+            component: Index,
         },
         {
-            path: `userInfo`,
+            path: `UserInfo`,
             name: '用户列表',
-            component: userInfo,
+            component: UserInfo,
         },
         {
-            path: `loading`,
-            name: '刷新',
-            component: userInfo,
+            path: `infoList`,
+            name: '技术栈',
+            component: InfoList,
         },
         {
             path: `loading1`,
             name: '刷新1',
-            component: userInfo,
+            component: UserInfo,
         },
         {
             path: `loading2`,
             name: '刷新2',
-            component: userInfo,
+            component: UserInfo,
         },
         {
             path: `loading3`,
             name: '刷新3',
-            component: userInfo,
+            component: UserInfo,
         },
         {
             path: `loading4`,
             name: '刷新4',
-            component: userInfo,
+            component: UserInfo,
         },
         {
             path: `loading5`,
             name: '刷新5',
-            component: userInfo,
+            component: UserInfo,
         },
         {
             path: `loading6`,
             name: '刷新6',
-            component: userInfo,
+            component: UserInfo,
         },
       ]
     },
