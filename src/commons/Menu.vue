@@ -4,7 +4,7 @@
       <i class="iconfont" v-html = "open?`&#xe606;`:`&#xe602;`"></i>
     </h3>
     <ul role="menubar" class="el-menu">
-      <li v-for="(item,index) in menuList" @click="clickFn(index)"  :key="index">
+      <li v-for="(item,index) in menuList" @click="clickFn(index)"  :key="index" :class="{isActive:$route.name == item.name}">
             <el-tooltip v-if="!open" class="item" effect="dark" :content="item.name" placement="right">
                 <router-link tag="div" :to="item.link">
                   <i class="iconfont" v-html="item.iconfont"></i>
