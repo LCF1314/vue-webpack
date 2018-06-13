@@ -8,7 +8,7 @@ import ElementUI from 'element-ui'
 import '../theme/index.scss'
 import './assets/css/app.scss'
 import Http, { http } from './apis'
-import utils, { $kgw } from './utils'
+import utils, { $lcf } from './utils'
 import loginHref from './utils/loginHref.js';
 import getCookie from './apis/getCookie.js';
 import store from './store'
