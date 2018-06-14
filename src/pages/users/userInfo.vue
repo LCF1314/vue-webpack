@@ -2,14 +2,7 @@
      <section 
         id="app-content" 
        >
-         <header class="listHeader">
-            <button 
-                class="lcf-btn-save" 
-                type="text" 
-                @click="saveFn">
-                <i class="iconfont">&#xe789;</i>保存
-            </button>
-         </header>
+        <order-header :btns = "['保存', '刷新']" @btn-change = "btnChange"></order-header>
         <div 
             v-loading = "loading"
             element-loading-background="rgba(0, 0, 0, 0.8)"
@@ -68,6 +61,10 @@
                     <template  slot-scope="scope">
                         <el-checkbox v-if="i.columnName == 'isAdmin'" v-model="scope.row[i.columnName]" :disabled="!scope.row.edit"></el-checkbox>
                         <el-input 
+                            :class="[
+                                 {'table-isRequire' : !scope.row[i.columnName]}
+                            ]"
+                            :title="!scope.row[i.columnName] ? '密码不能为空':''"
                             v-else-if="i.columnName == 'password'"
                             v-model="scope.row[i.columnName]" 
                             :placeholder="i.columnViewName"
@@ -94,10 +91,10 @@
     </section>
 </template>
 <script>
-    
+     import OrderHeader from '../../common/order/OrderHeader'
     export default {
         components: {
-
+            OrderHeader
         },
         data() {
             return { 
@@ -230,7 +227,33 @@
             tableRowClick(row){
                 this.tableThisRow = row;
             },
-            
+            // 刷新
+            reset(){
+                this.$confirm('确定刷新', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning',
+                    center: true
+                }).then(() => {
+                    this.userInfo();
+                }).catch(() => {
+                    this.$message({
+                        message: '已取消刷新',
+                        type: 'info',
+                    });
+                });
+            },
+            btnChange(name){
+                switch(name){
+                    case '保存':
+                        this.saveFn();
+                    break;
+                    case '刷新':
+                        this.reset();
+                    break;
+                    default:;
+                }
+            },
             updateFn(row, index){
                 let oldIndex = 100000000;
                 if(oldIndex == index){
@@ -261,6 +284,10 @@
             },
             async saveFn(){
                 if(!this.tableThisRow || !this.tableThisRow.edit) return;
+                if(!this.tableThisRow.password){
+                    this.$message.error('密码为必填项，请检查！');
+                    return;
+                }
                 let _data = await this.$http('post', '/user/update', this.tableThisRow);
                 if(_data.status == 200){
                     this.$message({

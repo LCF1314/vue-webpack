@@ -94,10 +94,11 @@
             closeClick(type){
                 switch(type){
                     case 'news':
-                        this.$router.replace({
-                            path: this.$route.path,
-                            name: this.$route.name
-                        });
+                        // this.$router.replace({
+                        //     path: this.$route.path,
+                        //     name: this.$route.name,
+                        // });
+                        // this.$route.meta.keepAlive = true; // 用于单据列表缓存
                     break;
                     case 'other':
                         this.tabRouter = this.tabRouter.filter((i, index) => {

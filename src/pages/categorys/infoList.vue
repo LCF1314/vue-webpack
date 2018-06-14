@@ -2,20 +2,7 @@
      <section 
         id="app-content" 
        >
-         <header class="listHeader">
-            <button 
-                class="lcf-btn-save" 
-                type="text" 
-                @click="createFn">
-                <i class="iconfont">&#xe78a;</i>新增
-            </button>
-            <button 
-                class="lcf-btn-save" 
-                type="text" 
-                @click="saveFn">
-                <i class="iconfont">&#xe789;</i>保存
-            </button>
-         </header>
+        <order-header :btns = "['新增', '保存', '刷新']" @btn-change = "btnChange"></order-header>
         <div 
             v-loading = "loading"
             element-loading-background="rgba(0, 0, 0, 0.8)"
@@ -75,6 +62,10 @@
                         <el-input 
                             v-if="i.columnName == 'categoryName'"
                             v-model="scope.row[i.columnName]" 
+                            :class="[
+                                 {'table-isRequire' : !scope.row[i.columnName]}
+                            ]"
+                            :title="!scope.row[i.columnName] ? '分类名称不能为空':''"
                             :placeholder="i.columnViewName"
                             :disabled="!scope.row.edit">
                         </el-input>
@@ -109,10 +100,10 @@
     </section>
 </template>
 <script>
-    
+    import OrderHeader from '../../common/order/OrderHeader'
     export default {
         components: {
-
+            OrderHeader
         },
         data() {
             return { 
@@ -303,6 +294,10 @@
                     if(!tableThisRow.addTime){
                         tableThisRow.addTime = this.$lcf.$DC.formatDates();
                     }
+                    if(!tableThisRow.categoryName){
+                        this.$message.error('分类名称为必填项，请检查！');
+                        return;
+                    }
                 }
                 let _data = await this.$http('post', url, tableThisRow);
                 if(_data.status == 200){
@@ -317,13 +312,41 @@
                 }else{
                     this.$message.error(_data.message);
                 }
+            },
+            // 刷新
+            reset(){
+                this.$confirm('确定刷新', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning',
+                    center: true
+                }).then(() => {
+                    this.categoryInfo();
+                }).catch(() => {
+                    this.$message({
+                        message: '已取消刷新',
+                        type: 'info',
+                    });
+                });
+            },
+            btnChange(name){
+                switch(name){
+                    case '新增':
+                        this.createFn();
+                    break;
+                    case '保存':
+                        this.saveFn();
+                    break;
+                    case '刷新':
+                        this.reset();
+                    break;
+                    default:;
+                }
             }
-            
         },
         computed: {
-           // 允许增加来源单货品
+            // 编辑
             isEdit() {
-                // 来源单id大于0则有来源单 
                 const isSource = this.tableData.some(i => {
                     return i.edit;
                 });
@@ -347,20 +370,11 @@
 </script>
 
 <style lang="scss" scoped>
-    .listHeader{
-        height: 40px;
-        line-height: 40px;
-        margin-bottom: 10px;
-        background: #e9ecf0;
-        
-    }
     header{
         background: #fff;
         height: 36px;
         line-height: 36px;
         font-size: 12px;
-        
-        
     }
     .table-i-box{
         i{
