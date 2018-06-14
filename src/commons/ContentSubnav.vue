@@ -129,6 +129,7 @@
                 this.boxWidth = defaultboxWidth.offsetWidth;
                 const nums = this.boxWidth / this.liWidth;
                 if(!Res){
+                    this.$route.meta.keepAlive = false; // 用于单据列表缓存
                     this.tabRouter.push({
                         path: this.$route.path,
                         name: this.$route.name
@@ -139,6 +140,7 @@
                     const len = Math.ceil(this.tabRouter.length - nums);
                     this.translateX = -len * this.liWidth;
                 }else {
+                     this.$route.meta.keepAlive = true; // 用于单据列表缓存
                     // 判断数组中有的话 循环找到具体位置用当前路由替换旧数据
                     this.tabRouter.forEach((i, index) => {
                         if(i.name === this.$route.name) {

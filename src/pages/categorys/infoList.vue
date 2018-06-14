@@ -96,7 +96,8 @@
                 </el-table-column>
             </el-table>
             <el-pagination 
-                @size-change="handleSizeChange" 
+                @size-change="handleSizeChange"
+                background 
                 @current-change="paginationCurrentClick" 
                 :current-page.sync="currentPage" 
                 :page-size="formData.pageSize" 
@@ -119,7 +120,8 @@
                 totalCount: 0,
                 tableData: [],
                 formData: {
-                    pageSize: 10,
+                    pageSize: 20,
+                    pageIndex: 1,
                 },
                 tableItemTPL:{
                     categoryName: '',
@@ -155,7 +157,11 @@
                         columnViewName: '创建时间',
                         columnName: 'addTime',
                         width: 180,
-                    
+                    },
+                    {
+                        columnViewName: '创建人',
+                        columnName: 'username',
+                        width: 120,
                     },
                 ]
             }
@@ -164,16 +170,15 @@
             // 登录
             async categoryInfo(){
                 this.loading = true;
-                let _data = await this.$http('post', '/categorys/infoList');
+                let _data = await this.$http('post', '/categorys/infoList', this.formData);
                 if(_data.status == 200){
-                    _data.data.forEach((item , index) => {
+                    _data.data.result.forEach((item , index) => {
                         this.$set(item, 'indexOf', index + 1);
-                        log(item.addTime)
                         item.addTime = this.$lcf.$DC.formatDates(item.addTime);
                         this.$set(item, 'edit', false);
                     })
-                    this.totalCount = _data.data.length;
-                    this.tableData = _data.data;
+                    this.totalCount = _data.data.totalCount;
+                    this.tableData = _data.data.result;
                 }
                 this.loading = false;
             },
@@ -187,7 +192,8 @@
 
             },
             paginationCurrentClick(){
-
+                this.formData.pageIndex = this.currentPage;
+                this.categoryInfo();
             },
             createFn(){
                 if(this.tableData.some(item => {return item.edit})) {
@@ -202,7 +208,7 @@
             deleteClick(){
                 if(this.selectionData.length === 0){
                     this.$message({
-                        message: '请先选择需要删除的用户!!!',
+                        message: '请先选择需要删除的分类!!!',
                         type: 'warning',
                     });
                     return;
@@ -242,6 +248,7 @@
             tableRowClick(row){
                 this.tableThisRow = row;
             },
+            
             updateFn(row, index){
                 let oldIndex = 100000000;
                 if(oldIndex == index){
@@ -250,7 +257,7 @@
                 oldIndex = index;
                 if(this.isEdit){
                     this.$message({
-                        message: '请先保存已编辑的用户信息......',
+                        message: '请先保存已编辑的分类信息......',
                         type: 'warning',
                     });
                     return;
@@ -307,6 +314,8 @@
                     setTimeout(() => {
                         this.categoryInfo();
                     }, 200)
+                }else{
+                    this.$message.error(_data.message);
                 }
             }
             
@@ -323,6 +332,13 @@
         },
         beforeCreate(){
             
+        },
+        activated() {
+            if(this.$route.meta.keepAlive){
+                // this.categoryInfo();
+            }else{
+                 this.categoryInfo();
+            }
         },
         created() {
            this.categoryInfo();

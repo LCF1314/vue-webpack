@@ -53,8 +53,8 @@
                     :width="80">
                     <template slot-scope="scope">
                         <div class="table-i-box">
-                            <i class="el-icon-edit table-color-info" v-if="!scope.row.isAdmin && !scope.row.edit" @click="updateFn(scope.row, scope.$index)" title="编辑"></i>
-                            <i class="el-icon-delete table-color-info"  v-if="!scope.row.isAdmin" @click="deleteFn(scope.row, scope.$index)" title="删除" ></i>
+                            <i class="el-icon-edit table-color-info" v-if="scope.row.username !== 'admin' && !scope.row.edit" @click="updateFn(scope.row, scope.$index)" title="编辑"></i>
+                            <i class="el-icon-delete table-color-info"  v-if="scope.row.username !== 'admin'" @click="deleteFn(scope.row, scope.$index)" title="删除" ></i>
                         </div>
                     </template>
                 </el-table-column>
@@ -66,7 +66,7 @@
                     :width="i.width"
                     :prop="i.columnName">
                     <template  slot-scope="scope">
-                        <el-checkbox v-if="i.columnName == 'isAdmin'" v-model="scope.row[i.columnName]" :disabled="true"></el-checkbox>
+                        <el-checkbox v-if="i.columnName == 'isAdmin'" v-model="scope.row[i.columnName]" :disabled="!scope.row.edit"></el-checkbox>
                         <el-input 
                             v-else-if="i.columnName == 'password'"
                             v-model="scope.row[i.columnName]" 
@@ -81,7 +81,8 @@
                 </el-table-column>
             </el-table>
             <el-pagination 
-                @size-change="handleSizeChange" 
+                @size-change="handleSizeChange"
+                background 
                 @current-change="paginationCurrentClick" 
                 :current-page.sync="currentPage" 
                 :page-size="formData.pageSize" 
@@ -104,7 +105,8 @@
                 totalCount: 0,
                 tableData: [],
                 formData: {
-                    pageSize: 10,
+                    pageSize: 20,
+                    pageIndex: 1,
                 },
                 selectionData: [],
                 tableThisRow: null,
@@ -157,17 +159,17 @@
             // 登录
             async userInfo(){
                 this.loading = true;
-                let _data = await this.$http('post', '/user/userInfo');
+                let _data = await this.$http('post', '/user/userInfo', this.formData);
                 if(_data.status == 200){
-                    _data.data.forEach((item , index) => {
+                    _data.data.result.forEach((item , index) => {
                         this.$set(item, 'indexOf', index + 1);
                         item.lastLoginTime = this.$lcf.$DC.formatDates(item.lastLoginTime);
                         item.addTime = this.$lcf.$DC.formatDates(item.addTime);
                         this.$set(item, 'edit', false);
                         // item.isAdmin =  item.isAdmin ? '是' : '否';
                     })
-                    this.totalCount = _data.data.length;
-                    this.tableData = _data.data;
+                    this.totalCount = _data.data.totalCount;
+                    this.tableData = _data.data.result;
                 }
                 this.loading = false;
             },
@@ -181,7 +183,8 @@
 
             },
             paginationCurrentClick(){
-
+                this.formData.pageIndex = this.currentPage;
+                this.userInfo();
             },
             deleteClick(){
                 if(this.selectionData.length === 0){
@@ -227,6 +230,7 @@
             tableRowClick(row){
                 this.tableThisRow = row;
             },
+            
             updateFn(row, index){
                 let oldIndex = 100000000;
                 if(oldIndex == index){
@@ -283,6 +287,13 @@
         },
         beforeCreate(){
             
+        },
+        activated() {
+            if(this.$route.meta.keepAlive){
+                // this.userInfo();
+            }else{
+                 this.userInfo();
+            }
         },
         created() {
            this.userInfo();
