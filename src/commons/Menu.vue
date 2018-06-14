@@ -98,6 +98,7 @@ export default {
     z-index: 1002;
     background-color: $-color-theme-menu;
     h3{
+      background: $-color-theme-menu-h3;
       height: 40px;
       line-height: 40px;
       text-align: center;
