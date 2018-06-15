@@ -16,9 +16,9 @@ export default {
             link:'/appContent/userInfo'
         },
         {
-            name:"学无止境",
+            name:"编辑内容",
             iconfont: "&#xe600;",
-            link:'/appContent/loading2'
+            link:'/appContent/content'
         },
         {
             name:"我的相册",

@@ -334,15 +334,12 @@
         line-height: 40px;
         margin-bottom: 10px;
         background: #e9ecf0;
-        
     }
     header{
         background: #fff;
         height: 36px;
         line-height: 36px;
         font-size: 12px;
-        
-        
     }
     .table-i-box{
         i{

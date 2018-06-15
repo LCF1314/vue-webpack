@@ -11,8 +11,9 @@ const appContent = resolve => require(['../pages/appContent'], resolve);
 const Index = resolve => require(['../pages/index'], resolve);
 const Login = resolve => require(['../pages/login'], resolve);
 const loading = resolve => require(['../pages/loading'], resolve);
-const UserInfo = resolve => require(['../pages/users/UserInfo'], resolve);
+const UserInfo = resolve => require(['../pages/users/userInfo'], resolve);
 const InfoList = resolve => require(['../pages/categorys/infoList'], resolve);
+const Content = resolve => require(['../pages/contents/content'], resolve);
 // const mainContent = resolve => require(['../pages/mainContent.vue'], resolve);
 
 Vue.use(Router);
@@ -51,13 +52,13 @@ export default new Router({
             component: InfoList,
         },
         {
-            path: `loading1`,
-            name: '刷新1',
-            component: UserInfo,
+            path: `content`,
+            name: '编辑内容',
+            component: Content,
         },
         {
             path: `loading2`,
-            name: '刷新2',
+            name: '编辑内容',
             component: UserInfo,
         },
         {

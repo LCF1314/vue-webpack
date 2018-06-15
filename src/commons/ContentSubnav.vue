@@ -179,11 +179,13 @@
             },
             scrollClick(direction){
                 this.liAllLen = this.tabRouter.length * this.liWidth;
-                const _onceWidth = this.liAllLen * .4;
+                let defaultboxWidth = document.querySelector('.raw-list_box');
+                this.boxWidth = defaultboxWidth.offsetWidth;
+                const _onceWidth = this.liAllLen * .3;
                 const _endWidth = this.liAllLen * .5;
-                if(direction == 'left' && this.translateX > -_endWidth) {
+                if(direction == 'left' && this.translateX > -_endWidth && this.liAllLen > this.boxWidth) {
                     this.translateX -= _onceWidth;
-                }else if(direction == 'right' && this.translateX < 0) {
+                }else if(direction == 'right' && this.translateX < 0 && this.liAllLen > this.boxWidth) {
                     this.translateX = _onceWidth > this.translateX ? 0 : this.translateX + _onceWidth;
                 }
             }
