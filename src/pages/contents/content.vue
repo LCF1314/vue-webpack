@@ -19,15 +19,15 @@
                 <span class="iconfont" @click="clickFn('[Vue](https://cn.vuejs.org/images/logo.png)')">&#xe68c;</span>
                 <span class="iconfont" @click="clickFn('![Vue](https://cn.vuejs.org/images/logo.png)')">&#xe651;</span>
                 <span class="iconfont" @click="clickFn(table)">&#xe607;</span>
-                <span class="iconfont" @click="clickFn(' * 66666')">&#xec56;</span>
+                <span class="iconfont" @click="clickFn('*  66666')">&#xec56;</span>
                 <span class="iconfont" @click="clickFn('1. 6666454545')">&#xe67a;</span>
-                <span class="iconfont" @click="isOpen = false">&#xe613;</span>
-                <span class="iconfont" @click="isOpen = true">&#xe653;</span>
+                <span class="iconfont"  @click="isOpen = false">&#xe613;</span>
+                <span class="iconfont"  @click="isOpen = true">&#xe653;</span>
             </div>
         </header>
         <div id="editor">
-            <textarea v-if ="isOpen" :value="input" @input="update" autofocus="autofocus"></textarea>
-            <div class="compiledMarkdown" v-html="compiledMarkdown"></div>
+            <textarea v-if="!isOpen" :value="input" @input="update" autofocus="autofocus"></textarea>
+            <div  class="compiledMarkdown" :class="{isOpen: isOpen}" v-html="compiledMarkdown"></div>
         </div>
     </section>
 </template>
@@ -43,7 +43,7 @@
             return { 
                 loading:false,
                 input: '# hello',
-                isOpen: true,
+                isOpen: false,
                 table: 'header1 | header2 \n ---|--- \nrow 1 col 1 | row 1 col \n2row 2 col 1 | row 2 col 2 \n'
             }
         },
@@ -107,6 +107,7 @@
         font-size: 12px;
         
     }
+    
     table tr, table td, table th{
         border: 1px solid #ddd;
     }
@@ -190,6 +191,12 @@
     #editor div.compiledMarkdown{
         padding-top: 16px; 
         background-color: #fff;
+    }
+    textarea.isOpen{
+        width: 0%;
+    }
+    div.isOpen{
+        width: 100% !important;
     }
     textarea {
         border: none;

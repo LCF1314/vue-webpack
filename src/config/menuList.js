@@ -16,9 +16,16 @@ export default {
             link:'/appContent/userInfo'
         },
         {
-            name:"编辑内容",
-            iconfont: "&#xe600;",
-            link:'/appContent/content'
+            name:"内容列表",
+            iconfont: "&#xe60f;",
+            child: [
+                {
+                    iconfont: "&#xe6ad;",
+                    name: "内容列表",
+                    link: '/appContent/content/list'
+                },
+                
+            ]
         },
         {
             name:"我的相册",

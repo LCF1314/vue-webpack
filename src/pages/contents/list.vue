@@ -59,29 +59,10 @@
                     :width="i.width"
                     :prop="i.columnName">
                     <template  slot-scope="scope">
-                        <el-input 
-                            v-if="i.columnName == 'categoryName'"
-                            v-model="scope.row[i.columnName]" 
-                            :class="[
-                                 {'table-isRequire' : !scope.row[i.columnName]}
-                            ]"
-                            :title="!scope.row[i.columnName] ? '分类名称不能为空':''"
-                            :placeholder="i.columnViewName"
-                            :disabled="!scope.row.edit">
-                        </el-input>
-                        <el-input 
-                            v-else-if="i.columnName == 'notes'"
-                            v-model="scope.row[i.columnName]" 
-                            :placeholder="i.columnViewName"
-                            :disabled="!scope.row.edit">
-                        </el-input>
+                        <!--<div v-if="i.columnName == 'content'"  v-html="scope.row[i.columnName]" style="overflow-y:auto;"></div>-->
                         <span 
-                            v-else-if="i.columnName == 'counts'"
-                            v-text="scope.row[i.columnName] || 0" 
-                            :class="{'table-color-disable': !scope.row[i.columnName]}"></span>
-                        <span 
-                            v-else
                             v-text="scope.row[i.columnName] || $lcf.appEmptyPlaceholder" 
+                            :title="scope.row[i.columnName]"
                             :class="{'table-color-disable': !scope.row[i.columnName]}"></span>
                     </template>
                 </el-table-column>
@@ -133,16 +114,14 @@
                         width: 120,
                     },
                     {
-                        columnViewName: '备注',
-                        columnName: 'notes',
+                        columnViewName: '标题',
+                        columnName: 'title',
                         width: 120,
-                    
                     },
                     {
-                        columnViewName: '内容条数',
-                        columnName: 'counts',
+                        columnViewName: '阅读量',
+                        columnName: 'views',
                         width: 120,
-                    
                     },
                     {
                         columnViewName: '创建时间',
@@ -154,13 +133,18 @@
                         columnName: 'username',
                         width: 120,
                     },
+                    {
+                        columnViewName: '内容',
+                        columnName: 'content',
+                        width: 420,
+                    },
                 ]
             }
         },
         methods: {
-            async categoryInfo(){
+            async contentInfo(){
                 this.loading = true;
-                let _data = await this.$http('post', '/categorys/infoList', this.formData);
+                let _data = await this.$http('post', '/content/infoList', this.formData);
                 if(_data.status == 200){
                     _data.data.result.forEach((item , index) => {
                         this.$set(item, 'indexOf', index + 1);
@@ -183,7 +167,7 @@
             },
             paginationCurrentClick(){
                 this.formData.pageIndex = this.currentPage;
-                this.categoryInfo();
+                this.contentInfo();
             },
             createFn(){
                 if(this.tableData.some(item => {return item.edit})) {
@@ -231,7 +215,7 @@
                     });
                     this.loading = true;
                     setTimeout(() => {
-                        this.categoryInfo();
+                        this.contentInfo();
                     }, 200)
                 }
             },
@@ -279,7 +263,7 @@
                     });
                     this.loading = true;
                     setTimeout(() => {
-                        this.categoryInfo();
+                        this.contentInfo();
                     }, 200)
                 }
             },
@@ -306,7 +290,7 @@
                     });
                     this.loading = true;
                     setTimeout(() => {
-                        this.categoryInfo();
+                        this.contentInfo();
                     }, 200)
                 }else{
                     this.$message.error(_data.message);
@@ -320,7 +304,7 @@
                     type: 'warning',
                     center: true
                 }).then(() => {
-                    this.categoryInfo();
+                    this.contentInfo();
                 }).catch(() => {
                     this.$message({
                         message: '已取消刷新',
@@ -357,13 +341,13 @@
         },
         activated() {
             if(this.$route.meta.keepAlive){
-                // this.categoryInfo();
+                // this.contentInfo();
             }else{
-                 this.categoryInfo();
+                 this.contentInfo();
             }
         },
         created() {
-           this.categoryInfo();
+           this.contentInfo();
         },
     }
 </script>

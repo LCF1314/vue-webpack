@@ -4,14 +4,38 @@
       <i class="iconfont" v-html = "open?`&#xe606;`:`&#xe602;`"></i>
     </h3>
     <ul role="menubar" class="el-menu">
-      <li v-for="(item,index) in menuList" @click="clickFn(index)"  :key="index" :class="{isActive:$route.name == item.name}">
+      <li v-for="(item,index) in menuList" @click="clickFn(index)"  :key="index" >
             <el-tooltip v-if="!open" class="item" effect="dark" :content="item.name" placement="right">
-                <router-link tag="div" :to="item.link">
+                <div v-if="item.child">
+                    <i class="iconfont" v-html="item.iconfont"></i>
+                    <span class="menu-name" >{{item.name}}</span>
+                </div>
+                <ul v-if="item.child">
+                  <li v-for="(j,indexJ) in item.child" @click="clickFn(indexJ)"  :key="indexJ">
+                    <router-link v-if="open" tag="div" :to="j.link">
+                      <i class="iconfont" v-html="j.iconfont"></i>
+                      <span class="menu-name" >{{j.name}}</span>
+                    </router-link>
+                  </li>
+                </ul>
+                <router-link v-else tag="div" :to="item.link">
                   <i class="iconfont" v-html="item.iconfont"></i>
                   <span class="menu-name" >{{item.name}}</span>
                 </router-link>
             </el-tooltip>
-            <router-link v-if="open" tag="div" :to="item.link">
+            <div v-if="item.child && open">
+              <i class="iconfont" v-html="item.iconfont"></i>
+              <span class="menu-name" >{{item.name}}</span>
+            </div>
+            <ul v-if="item.child && open">
+              <li v-for="(j,indexJ) in item.child" @click="clickFn(indexJ)"  :key="indexJ">
+                <router-link v-if="open" tag="div" :to="j.link">
+                  <i class="iconfont" v-html="j.iconfont"></i>
+                  <span class="menu-name" >{{j.name}}</span>
+                </router-link>
+              </li>
+            </ul>
+            <router-link v-if="open && !item.child" tag="div" :to="item.link">
               <i class="iconfont" v-html="item.iconfont"></i>
               <span class="menu-name" >{{item.name}}</span>
             </router-link>
@@ -29,6 +53,7 @@ export default {
       menuList: this.$lcf.config.menuList.menuList,
       isActive: 0, 
       open: true,
+      child: '',
     }
   },
   computed: {
@@ -50,6 +75,7 @@ export default {
   methods: {
     clickFn(index){
       this.isActive = index;
+
     },
     isOpen(){
       this.open = !this.open; 
@@ -88,6 +114,9 @@ export default {
       }
     }
   }
+  .child{
+    display: block;
+  }
   aside{
     position: fixed;
     left: 0;
@@ -122,12 +151,11 @@ export default {
         div{
           padding: 0 10px;
         }
-        height: 50px;
+        // height: 50px;
         line-height: 50px;
         color: #fff;
         position: relative;
         cursor: pointer;
-        overflow: hidden;
         &:hover{
           background-color: $-color-theme-bg;
         }
@@ -144,6 +172,13 @@ export default {
           white-space:nowrap; 
           overflow:hidden; 
           text-overflow:ellipsis;
+        }
+        ul{
+          background-color: #373d41;
+          font-size: 14px;
+          .iconfont{
+            font-size: 14px;
+          }
         }
         
       }

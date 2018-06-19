@@ -13,9 +13,11 @@ const Login = resolve => require(['../pages/login'], resolve);
 const loading = resolve => require(['../pages/loading'], resolve);
 const UserInfo = resolve => require(['../pages/users/userInfo'], resolve);
 const InfoList = resolve => require(['../pages/categorys/infoList'], resolve);
-const Content = resolve => require(['../pages/contents/content'], resolve);
-// const mainContent = resolve => require(['../pages/mainContent.vue'], resolve);
-
+const mainContent = resolve => require(['../pages/mainContent'], resolve);
+// 期初
+import content from './content';
+log(mainContent)
+log(content)
 Vue.use(Router);
 /*{
   path: ADDRESS,
@@ -53,8 +55,8 @@ export default new Router({
         },
         {
             path: `content`,
-            name: '编辑内容',
-            component: Content,
+            component: mainContent,
+            children: content
         },
         {
             path: `loading2`,
