@@ -14,6 +14,7 @@
             <div v-if="item.child">
               <i class="iconfont" v-html="item.iconfont"></i>
               <span class="menu-name" >{{item.name}}</span>
+              <i class="iconfont icon_arrow" >&#xe70a;</i>
             </div>
             <router-link v-if="open && !item.child" tag="div" :to="item.link">
               <i class="iconfont" v-html="item.iconfont"></i>
@@ -141,7 +142,8 @@ export default {
             line-height: 40px;
         }
         &:hover{
-          background-color: $-color-theme-bg;
+          color: $-color-theme-bg;
+          // background-color: $-color-theme-bg;
         }
         .iconfont{
           font-size: 20px;
@@ -199,7 +201,8 @@ export default {
         position: relative;
         cursor: pointer;
         &:hover{
-          background-color: $-color-theme-bg;
+          // background-color: $-color-theme-bg;
+          color: $-color-theme-bg;
         }
         .iconfont{
           font-size: 20px;
@@ -214,6 +217,9 @@ export default {
           white-space:nowrap; 
           overflow:hidden; 
           text-overflow:ellipsis;
+        }
+        .icon_arrow{
+          left: 150px;
         }
         ul{
           background-color: #373d41;
