@@ -113,9 +113,22 @@
             btnChange(name){
                 switch(name){
                     case '新增':
-                       this.$router.replace({name: '内容详情', params: {id: 'create'}});
-                       this.categoryInfo();
-                       this.form = JSON.parse(JSON.stringify(this.postData));
+                        this.$confirm('确认新增', '提示', {
+                            confirmButtonText: '确定',
+                            cancelButtonText: '取消',
+                            type: 'warning',
+                            center: true
+                        }).then(() => {
+                            this.$router.replace({name: '内容详情', params: {id: 'create'}});
+                            this.categoryInfo();
+                            this.form = JSON.parse(JSON.stringify(this.postData));
+                        }).catch(() => {
+                            this.$message({
+                                message: '已取消新增',
+                                type: 'info',
+                            });
+                        });
+                     
                     break;
                     case '保存':
                         if(this.$route.params.id != 'create'){
