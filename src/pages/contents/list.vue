@@ -284,6 +284,10 @@
                     center: true
                 }).then(() => {
                     this.contentInfo();
+                    this.$message({
+                        message: '刷新成功',
+                        type: 'success',
+                    });
                 }).catch(() => {
                     this.$message({
                         message: '已取消刷新',

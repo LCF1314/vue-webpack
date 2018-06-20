@@ -81,6 +81,35 @@
                 })
                 this.form.categoryName = arr[0].categoryName;
             },
+            // 刷新
+            reset(){
+                this.$confirm('刷新后不保存已修改的数据,如若保存请先点击保存！', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning',
+                    center: true
+                }).then(() => {
+                    this.categoryInfo();
+                    if(this.$route.params.id != 'create'){
+                        this.getModel();
+                        this.$message({
+                            message: '刷新成功',
+                            type: 'success',
+                        });
+                    }else{
+                        this.form = JSON.parse(JSON.stringify(this.postData));
+                        this.$message({
+                            message: '刷新成功',
+                            type: 'success',
+                        });
+                    }
+                }).catch(() => {
+                    this.$message({
+                        message: '已取消刷新',
+                        type: 'info',
+                    });
+                });
+            },
             btnChange(name){
                 switch(name){
                     case '新增':
@@ -98,12 +127,7 @@
                         }
                     break;
                     case '刷新':
-                        this.categoryInfo();
-                        if(this.$route.params.id != 'create'){
-                            this.getModel();
-                        }else{
-                            this.form = JSON.parse(JSON.stringify(this.postData));
-                        }
+                        this.reset();
                     break;
                     
                     default:;
