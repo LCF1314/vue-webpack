@@ -230,7 +230,7 @@
             },
             // 刷新
             reset(){
-                this.$confirm('确定刷新', '提示', {
+                this.$confirm('刷新后不保存已修改的数据,如若保存请先点击保存!', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning',
