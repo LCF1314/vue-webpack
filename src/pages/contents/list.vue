@@ -36,7 +36,7 @@
                 </el-table-column>
                 <el-table-column 
                     label=" " 
-                    type="index" 
+                    prop="indexId"
                     align="center" 
                     :width="36">
                 </el-table-column>
@@ -154,7 +154,8 @@
                 let _data = await this.$http('post', '/content/infoList', this.formData);
                 if(_data.status == 200){
                     _data.data.result.forEach((item , index) => {
-                        this.$set(item, 'indexOf', index + 1);
+                        const INDEXID = (this.formData.pageIndex - 1) * this.formData.pageSize + index + 1;
+                        this.$set(item, 'indexId', INDEXID); // 添加下标id
                         item.addTime = item.addTime ? this.$lcf.$DC.formatDates(item.addTime) : '';
                         item.updateTime = item.updateTime ? this.$lcf.$DC.formatDates(item.updateTime) : '';
                         this.$set(item, 'edit', false);
