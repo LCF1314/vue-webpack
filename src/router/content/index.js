@@ -8,12 +8,12 @@ export default [
     },
     {
         path: `list/:id`,
-        name: '编辑内容',
+        name: '内容详情',
         component: detail,
     },
     {
         path: `list/create`,
-        name: '新增内容',
+        name: '内容详情',
         component: detail,
     },
 ]

@@ -4,41 +4,32 @@
       <i class="iconfont" v-html = "open?`&#xe606;`:`&#xe602;`"></i>
     </h3>
     <ul role="menubar" class="el-menu">
-      <li v-for="(item,index) in menuList" @click="clickFn(index)"  :key="index" >
-            <el-tooltip v-if="!open" class="item" effect="dark" :content="item.name" placement="right">
-                <div v-if="item.child">
-                    <i class="iconfont" v-html="item.iconfont"></i>
-                    <span class="menu-name" >{{item.name}}</span>
-                </div>
-                <ul v-if="item.child">
-                  <li v-for="(j,indexJ) in item.child" @click="clickFn(indexJ)"  :key="indexJ">
-                    <router-link v-if="open" tag="div" :to="j.link">
-                      <i class="iconfont" v-html="j.iconfont"></i>
-                      <span class="menu-name" >{{j.name}}</span>
-                    </router-link>
-                  </li>
-                </ul>
-                <router-link v-else tag="div" :to="item.link">
+      <li v-for="(item,index) in menuList" @click="clickFn(index)"  :key="index" @mouseenter = "rowIndex = index">
+            <el-tooltip v-if="!open && !item.child" class="item" effect="dark" :content="item.name" placement="right">
+                <router-link tag="div" :to="item.link">
                   <i class="iconfont" v-html="item.iconfont"></i>
                   <span class="menu-name" >{{item.name}}</span>
                 </router-link>
             </el-tooltip>
-            <div v-if="item.child && open">
+            <div v-if="item.child">
               <i class="iconfont" v-html="item.iconfont"></i>
               <span class="menu-name" >{{item.name}}</span>
             </div>
-            <ul v-if="item.child && open">
-              <li v-for="(j,indexJ) in item.child" @click="clickFn(indexJ)"  :key="indexJ">
-                <router-link v-if="open" tag="div" :to="j.link">
-                  <i class="iconfont" v-html="j.iconfont"></i>
-                  <span class="menu-name" >{{j.name}}</span>
-                </router-link>
-              </li>
-            </ul>
             <router-link v-if="open && !item.child" tag="div" :to="item.link">
               <i class="iconfont" v-html="item.iconfont"></i>
               <span class="menu-name" >{{item.name}}</span>
             </router-link>
+      </li>
+    </ul>
+    <ul role="menubar"  class="child-content" :class="{isOpen:!open}" @mouseleave = "rowIndex = 9999999" v-if="menuList[rowIndex] && menuList[rowIndex].child && menuList[rowIndex].child.length > 0">
+      <li class = "child_h3" >
+          <h3>{{menuList[rowIndex].name}}</h3>
+      </li>
+      <li class = "child_list" v-for="(item,index) in menuList[rowIndex].child" @click="clickFn(index)" :key="index" >
+          <router-link tag="div" :to="item.link">
+            <i class="iconfont" v-html="item.iconfont"></i>
+            <span class="menu-name" >{{item.name}}</span>
+          </router-link>
       </li>
     </ul>
   </aside>
@@ -54,6 +45,7 @@ export default {
       isActive: 0, 
       open: true,
       child: '',
+      rowIndex: 9999999,
     }
   },
   computed: {
@@ -84,6 +76,9 @@ export default {
     ...mapMutations([
         'UpdateIsAppMenuOpen'
     ]),
+    mouseover(){
+      log(111)
+    }
 
   }
 }
@@ -93,6 +88,9 @@ export default {
 <style lang="scss" scoped>
   .isOpen{
     width: 60px;
+    .child-content{
+      left: 60px;
+    }
     h3{
       .isOpenFont{
         -moz-transform:scaleX(-1);
@@ -123,9 +121,52 @@ export default {
     top: 60px;
     width: 180px;
     height: 100%;
-    overflow: hidden;
+    // overflow: hidden;
     z-index: 1002;
     background-color: $-color-theme-menu;
+    .child-content{
+      position: absolute;
+      top: 0;
+      left: 180px;
+      width: 179px;
+      height: 100%;
+      background-color: $-color-theme-menu;
+      border-left: 1px solid hsla(0,0%,100%,.15);
+      li{
+        color: #fff;
+        cursor: pointer;
+        div{
+            text-align: center;
+            height: 40px;
+            line-height: 40px;
+        }
+        &:hover{
+          background-color: $-color-theme-bg;
+        }
+        .iconfont{
+          font-size: 20px;
+          vertical-align: middle;
+        }
+        span{
+          margin-left: 16px;
+          vertical-align: middle;
+          white-space:nowrap; 
+          overflow:hidden; 
+          text-overflow:ellipsis;
+        }
+        h3{
+          font-size: 18px;
+        }
+      }
+      li.child_list{
+        div{
+            text-align: center;
+            height: 50px;
+            line-height: 50px;
+        }
+      }
+        
+    }
     h3{
       background: $-color-theme-menu-h3;
       height: 40px;
@@ -151,6 +192,7 @@ export default {
         div{
           padding: 0 10px;
         }
+        overflow: hidden;
         // height: 50px;
         line-height: 50px;
         color: #fff;

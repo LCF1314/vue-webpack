@@ -2,7 +2,7 @@
      <section 
         id="app-content" 
        >
-        <order-header :btns = "['新增', '保存', '刷新']" @btn-change = "btnChange"></order-header>
+        <order-header :btns = "['新增', '刷新']" @btn-change = "btnChange"></order-header>
         <div 
             v-loading = "loading"
             element-loading-background="rgba(0, 0, 0, 0.8)"
@@ -46,8 +46,10 @@
                     :width="80">
                     <template slot-scope="scope">
                         <div class="table-i-box">
-                            <i class="el-icon-edit table-color-info" v-if="!scope.row.isAdmin && !scope.row.edit" @click="updateFn(scope.row, scope.$index)" title="编辑"></i>
-                            <i class="el-icon-delete table-color-info"  v-if="!scope.row.isAdmin" @click="deleteFn(scope.row, scope.$index)" title="删除" ></i>
+                            <router-link  tag="a" :to="{name: '内容详情', params: {id: scope.row._id, clear: true}}">
+                                <i class="el-icon-edit table-color-info"  title="编辑"></i>
+                            </router-link>
+                            <i class="el-icon-delete table-color-info"   @click="deleteFn(scope.row, scope.$index)" title="删除" ></i>
                         </div>
                     </template>
                 </el-table-column>
@@ -129,6 +131,11 @@
                         width: 180,
                     },
                     {
+                        columnViewName: '最后修改时间',
+                        columnName: 'updateTime',
+                        width: 180,
+                    },
+                    {
                         columnViewName: '创建人',
                         columnName: 'username',
                         width: 120,
@@ -148,7 +155,8 @@
                 if(_data.status == 200){
                     _data.data.result.forEach((item , index) => {
                         this.$set(item, 'indexOf', index + 1);
-                        item.addTime = this.$lcf.$DC.formatDates(item.addTime);
+                        item.addTime = item.addTime ? this.$lcf.$DC.formatDates(item.addTime) : '';
+                        item.updateTime = item.updateTime ? this.$lcf.$DC.formatDates(item.updateTime) : '';
                         this.$set(item, 'edit', false);
                     })
                     this.totalCount = _data.data.totalCount;
@@ -207,7 +215,7 @@
                 }).map(item => {
                     return item._id;
                 })
-                let _data = await this.$http('post', '/categorys/bulkDelete', {ids: this.selectionData});
+                let _data = await this.$http('post', '/content/bulkDelete', {ids: this.selectionData});
                 if(_data.status == 200){
                     this.$message({
                         message: _data.data.message,
@@ -255,7 +263,7 @@
                 
             },
             async delete(row){
-                let _data = await this.$http('post', '/categorys/delete', {_id: row._id});
+                let _data = await this.$http('post', '/content/delete', {_id: row._id});
                 if(_data.status == 200){
                     this.$message({
                         message: _data.data.message,
@@ -265,35 +273,6 @@
                     setTimeout(() => {
                         this.contentInfo();
                     }, 200)
-                }
-            },
-            async saveFn(){
-                if(!this.tableThisRow || !this.tableThisRow.edit) return;
-                let url = '/categorys/update' 
-                const tableThisRow = JSON.parse(JSON.stringify(this.tableThisRow));
-                
-                if(!this.tableThisRow._id){
-                    url = '/categorys/create';
-                    if(!tableThisRow.addTime){
-                        tableThisRow.addTime = this.$lcf.$DC.formatDates();
-                    }
-                    if(!tableThisRow.categoryName){
-                        this.$message.error('分类名称为必填项，请检查！');
-                        return;
-                    }
-                }
-                let _data = await this.$http('post', url, tableThisRow);
-                if(_data.status == 200){
-                    this.$message({
-                        message: _data.data.message,
-                        type: _data.data.status,
-                    });
-                    this.loading = true;
-                    setTimeout(() => {
-                        this.contentInfo();
-                    }, 200)
-                }else{
-                    this.$message.error(_data.message);
                 }
             },
             // 刷新
@@ -315,10 +294,7 @@
             btnChange(name){
                 switch(name){
                     case '新增':
-                        this.createFn();
-                    break;
-                    case '保存':
-                        this.saveFn();
+                        this.$router.replace({name: '内容详情', params: {id: 'create'}});
                     break;
                     case '刷新':
                         this.reset();
@@ -340,14 +316,10 @@
             
         },
         activated() {
-            if(this.$route.meta.keepAlive){
-                // this.contentInfo();
-            }else{
-                 this.contentInfo();
-            }
+            this.contentInfo();
         },
         created() {
-           this.contentInfo();
+
         },
     }
 </script>

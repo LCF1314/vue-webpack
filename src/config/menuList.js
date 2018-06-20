@@ -16,7 +16,7 @@ export default {
             link:'/appContent/userInfo'
         },
         {
-            name:"内容列表",
+            name:"内容",
             iconfont: "&#xe60f;",
             child: [
                 {
@@ -24,7 +24,6 @@ export default {
                     name: "内容列表",
                     link: '/appContent/content/list'
                 },
-                
             ]
         },
         {
