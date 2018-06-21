@@ -161,8 +161,8 @@
                     _data.data.result.forEach((item , index) => {
                         const INDEXID = (this.formData.pageIndex - 1) * this.formData.pageSize + index + 1;
                         this.$set(item, 'indexId', INDEXID); // 添加下标id
-                        item.lastLoginTime = this.$lcf.$DC.formatDates(item.lastLoginTime);
-                        item.addTime = this.$lcf.$DC.formatDates(item.addTime);
+                        item.lastLoginTime = item.lastLoginTime ? this.$lcf.$DC.formatDates(item.lastLoginTime) : '';
+                        item.addTime = item.addTime ? this.$lcf.$DC.formatDates(item.addTime): '';
                         this.$set(item, 'edit', false);
                         // item.isAdmin =  item.isAdmin ? '是' : '否';
                     })
