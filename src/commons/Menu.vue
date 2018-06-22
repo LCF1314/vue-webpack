@@ -77,9 +77,6 @@ export default {
     ...mapMutations([
         'UpdateIsAppMenuOpen'
     ]),
-    mouseover(){
-      log(111)
-    }
 
   }
 }
