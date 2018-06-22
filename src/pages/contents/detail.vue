@@ -219,6 +219,7 @@
         },
         activated() {
             if(this.$route.params.id != 'create'){
+                this.form = JSON.parse(JSON.stringify(this.postData));
                 this.getModel();
             }else{
                 this.form = JSON.parse(JSON.stringify(this.postData));

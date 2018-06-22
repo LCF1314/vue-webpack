@@ -39,15 +39,16 @@
 
 <style lang="scss" scoped>
    .appContent-view-open{
-       padding-left: 180px;
+        margin-left: 180px;
    }
    .appContent-view-close{
-       padding-left: 60px;
+        margin-left: 60px;
    }
    .appContent-view{
-       padding-top: 96px;
-       height: 100%;
-       background-color: #fff;
+        padding-top: 96px;
+        height: 100%;
+        background-color: #fff;
+        transition: margin-left 0.2s linear;
    }
 </style>
 

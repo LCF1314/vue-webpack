@@ -8,12 +8,12 @@
             <el-tooltip v-if="!open && !item.child" class="item" effect="dark" :content="item.name" placement="right">
                 <router-link tag="div" :to="item.link">
                   <i class="iconfont" v-html="item.iconfont"></i>
-                  <span class="menu-name" >{{item.name}}</span>
+                  <span  class="menu-name" ></span>
                 </router-link>
             </el-tooltip>
             <div v-if="item.child">
               <i class="iconfont" v-html="item.iconfont"></i>
-              <span class="menu-name" >{{item.name}}</span>
+              <span class="menu-name" v-html="open ? item.name : ''" ></span>
               <i class="iconfont icon_arrow" >&#xe70a;</i>
             </div>
             <router-link v-if="open && !item.child" tag="div" :to="item.link">
@@ -117,6 +117,7 @@ export default {
     display: block;
   }
   aside{
+    transition: width 0.2s linear;
     position: fixed;
     left: 0;
     top: 60px;
