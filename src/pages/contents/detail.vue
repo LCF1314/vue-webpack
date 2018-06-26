@@ -28,6 +28,20 @@
             @focus="onEditorFocus($event)"
             @ready="onEditorReady($event)">
         </quill-editor>
+        <el-upload
+            class="upload-demo"
+            action="http://127.0.0.1:3000/upload"
+            enctype="multipart/form-data"
+            :on-preview="handlePreview"
+            :on-remove="handleRemove"
+            :before-remove="beforeRemove"
+            multiple
+            :limit="3"
+            :on-exceed="handleExceed"
+            :file-list="fileList">
+            <el-button size="small" type="primary">点击上传</el-button>
+            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+        </el-upload>
         <!--手动控制数据流-->
         <!--<quill-editor ref="myTextEditor"
               :content="content"
@@ -54,6 +68,7 @@
                     // something config
                 },
                 form: {},
+                fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}],
                 postData: {
                     title: '',
                     description: '',
@@ -110,6 +125,18 @@
                     });
                 });
             },
+            handleRemove(file, fileList) {
+                console.log(file, fileList);
+            },
+            handlePreview(file) {
+                console.log(file);
+            },
+            handleExceed(files, fileList) {
+                this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+            },
+            beforeRemove(file, fileList) {
+                return this.$confirm(`确定移除 ${ file.name }？`);
+            },
             btnChange(name){
                 switch(name){
                     case '新增':
@@ -157,6 +184,14 @@
             async getModel(){
                 this.loading = true;
                 let _data = await this.$http('post', '/content/getModel', {id: this.$route.params.id});
+                if(_data.status == 200){
+                    this.form = _data.data.result;
+                }
+                this.loading = false;
+            },
+            async uploadFile(){
+                this.loading = true;
+                let _data = await this.$http('post', '/content/upload', {id: this.$route.params.id});
                 if(_data.status == 200){
                     this.form = _data.data.result;
                 }

@@ -79,7 +79,9 @@
                 :total="totalCount">
             </el-pagination>
         </div>
-
+        <div>
+            <a :href="image">5465465456456</a>
+        </div>
     </section>
 </template>
 <script>
@@ -106,6 +108,7 @@
                     edit: true,
                     userId: JSON.parse(localStorage.getItem('userInfo'))._id,
                 },
+                image:'',
                 selectionData: [],
                 tableThisRow: null,
                 currentPage: 1,
@@ -162,6 +165,7 @@
                     })
                     this.totalCount = _data.data.totalCount;
                     this.tableData = _data.data.result;
+                    this.image = _data.data.image;
                 }
                 this.loading = false;
             },
