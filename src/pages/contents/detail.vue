@@ -30,7 +30,7 @@
         </quill-editor>
         <el-upload
             class="upload-demo"
-            action="http://127.0.0.1:3000/upload"
+            :action="BASE_URL + '/upload'"
             enctype="multipart/form-data"
             :on-preview="handlePreview"
             :on-remove="handleRemove"
@@ -57,6 +57,7 @@
     import 'quill/dist/quill.bubble.css'
     import OrderHeader from '../../common/order/OrderHeader'
     import { quillEditor } from 'vue-quill-editor'
+    import { BASE_URL } from '../../config/const';
     export default {
         components: {
             OrderHeader, quillEditor
@@ -68,6 +69,7 @@
                     // something config
                 },
                 form: {},
+                BASE_URL: BASE_URL,
                 fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}],
                 postData: {
                     title: '',
