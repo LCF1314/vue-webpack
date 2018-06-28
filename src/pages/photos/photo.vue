@@ -22,6 +22,7 @@
             list-type="picture-card"
             :on-preview="handlePreview"
             :on-remove="handleRemove"
+            :on-error="onError"
             :on-success="onSuccess"
             :before-upload="beforeAvatarUpload">
             <i class="el-icon-plus"></i>
@@ -80,11 +81,11 @@
                 });
             },
             handleRemove(file, fileList) {
-                log(file)
+                const isJPG = (file.type === 'image/jpeg' || file.type === 'image/png');
+                if(!isJPG) return;
                 this.deletePhoto(file);
             },
             handlePreview(file) {
-                console.log(file);
                 this.dialogImageUrl = file.url;
                 this.dialogVisible = true;
             },
@@ -92,7 +93,10 @@
                 this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
             },
             onSuccess(response, file, fileList){
-               this.getPhotos();
+                this.getPhotos();
+            },
+            onError(err, file, fileList){
+                this.$message.error(err.message);
             },
             beforeAvatarUpload(file) {
                 const isJPG = (file.type === 'image/jpeg' || file.type === 'image/png');
