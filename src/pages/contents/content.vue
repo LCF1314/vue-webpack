@@ -61,10 +61,8 @@
                 }
             },
             clickFn(type){
-                log(type)
                 this.input += '\n';
                 this.input += type + '\n';
-                log(this.compiledMarkdown)
             },
             update: _.debounce(function (e) {
                 this.input = e.target.value

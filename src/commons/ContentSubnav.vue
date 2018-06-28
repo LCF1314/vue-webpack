@@ -155,7 +155,6 @@
                                 if(index < len){
                                     this.translateX =  -index * this.liWidth;
                                 }else if(Math.ceil(index - nums) > 0 && Math.ceil(index - nums) < len){
-                                    log(Math.ceil(index - nums))
                                     this.translateX =  -(index-len-1) * this.liWidth;
                                 }
                             }

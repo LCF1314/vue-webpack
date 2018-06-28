@@ -28,7 +28,7 @@
             @focus="onEditorFocus($event)"
             @ready="onEditorReady($event)">
         </quill-editor>
-        <el-upload
+        <!--<el-upload
             class="upload-demo"
             :action="BASE_URL + '/upload'"
             enctype="multipart/form-data"
@@ -41,7 +41,7 @@
             :file-list="fileList">
             <el-button size="small" type="primary">点击上传</el-button>
             <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-        </el-upload>
+        </el-upload>-->
         <!--手动控制数据流-->
         <!--<quill-editor ref="myTextEditor"
               :content="content"

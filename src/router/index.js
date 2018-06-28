@@ -14,10 +14,9 @@ const loading = resolve => require(['../pages/loading'], resolve);
 const UserInfo = resolve => require(['../pages/users/userInfo'], resolve);
 const InfoList = resolve => require(['../pages/categorys/infoList'], resolve);
 const mainContent = resolve => require(['../pages/mainContent'], resolve);
+const Photo = resolve => require(['../pages/photos/photo'], resolve);
 // 期初
 import content from './content';
-log(mainContent)
-log(content)
 Vue.use(Router);
 /*{
   path: ADDRESS,
@@ -59,14 +58,9 @@ export default new Router({
             children: content
         },
         {
-            path: `loading2`,
-            name: '编辑内容',
-            component: UserInfo,
-        },
-        {
-            path: `loading3`,
-            name: '刷新3',
-            component: UserInfo,
+            path: `photo`,
+            name: '我的相册',
+            component: Photo,
         },
         {
             path: `loading4`,

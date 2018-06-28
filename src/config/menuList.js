@@ -29,7 +29,7 @@ export default {
         {
             name:"我的相册",
             iconfont: "&#xe61e;",
-            link:'/appContent/loading3'
+            link:'/appContent/photo'
         },
         {
             name:"留言板",
