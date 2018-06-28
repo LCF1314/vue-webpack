@@ -81,8 +81,7 @@
                 });
             },
             handleRemove(file, fileList) {
-                const isJPG = (file.type === 'image/jpeg' || file.type === 'image/png');
-                if(!isJPG) return;
+                if(file.type) return;
                 this.deletePhoto(file);
             },
             handlePreview(file) {
