@@ -81,7 +81,8 @@
                 });
             },
             handleRemove(file, fileList) {
-                if(file.type) return;
+
+                if(typeof file.uid === 'number') return;
                 this.deletePhoto(file);
             },
             handlePreview(file) {
@@ -92,7 +93,13 @@
                 this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
             },
             onSuccess(response, file, fileList){
-                this.getPhotos();
+                // this.getPhotos();
+                file.name = response.result.result.originalname,
+                file.fileName = response.result.result.fileName,
+                file.url = response.result.result.filePath,
+                file.link = response.result.result.link,
+                file.uid = response.result.result._id
+                fileList[length-1] = file;
             },
             onError(err, file, fileList){
                 this.$message.error(err.message);
@@ -112,10 +119,9 @@
                 return isJPG && isLt2M;
             },
             async getPhotos(){
-                this.loading = true;
                 let _data = await this.$http('post', '/getPhotos', {id: this.$route.params.id});
                 if(_data.status == 200){
-                    this.fileList = _data.data.result.map(item => {
+                    this.fileList = _data.data.result.length> 0 && _data.data.result.map(item => {
                         return {
                             name: item.originalname,
                             fileName: item.fileName,
@@ -125,10 +131,8 @@
                         }
                     });
                 }
-                this.loading = false;
             },
             async deletePhoto(file){
-                this.loading = true;
                 let _data = await this.$http('post', '/deletePhoto', {id: file.uid,fileName: file.fileName});
                 if(_data.status == 200){
                      this.$message({
@@ -136,7 +140,6 @@
                         type: 'success',
                     });
                 }
-                this.loading = false;
             },
           
         },
