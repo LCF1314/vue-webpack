@@ -1,6 +1,7 @@
 
 const baseUrlHash = {
-    production: 'http://www.lw1314.cn:3000',
+    production: 'https://www.lw1314.cn:3000',
+    // production: 'http://www.lw1314.cn:3000',
     development: 'http://localhost:3000',//http://www.lw1314.cn
     'productionUat': ''
 };

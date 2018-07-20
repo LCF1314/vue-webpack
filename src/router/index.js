@@ -10,6 +10,7 @@ const ADDRESS = '/';
 const appContent = resolve => require(['../pages/appContent'], resolve);
 const Index = resolve => require(['../pages/index'], resolve);
 const Login = resolve => require(['../pages/login'], resolve);
+const Demo = resolve => require(['../pages/demo'], resolve);
 const loading = resolve => require(['../pages/loading'], resolve);
 const UserInfo = resolve => require(['../pages/users/userInfo'], resolve);
 const InfoList = resolve => require(['../pages/categorys/infoList'], resolve);
@@ -32,6 +33,11 @@ export default new Router({
       path: `${ADDRESS}login`,
       name: 'login',
       component: Login
+    },
+    {
+        path: `${ADDRESS}demo`,
+        name: 'demo',
+        component: Demo
     },
     {
       path: `${ADDRESS}appContent`,
