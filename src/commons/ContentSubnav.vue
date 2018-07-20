@@ -1,7 +1,7 @@
 <template>
     <!-- **路由导航组件 -->
     <div class="subnav-box" >
-        <div class="subnav">
+        <div class="subnav" :class="{'appContent-view-close': !appMenuOpen}">
             <div class="iconfont icon-back"  @click.stop.prevent="scrollClick('left')">&#xe74b;</div>
             <div class="fl nav-list raw-list_box">
                 <nav class="clearfix" :style="{transform: `translateX(${translateX}px)`}">
@@ -65,7 +65,10 @@
                 deleteRouter: state => {
                     return state.global.deleteRouter;
                 },
-            })
+            }),
+            appMenuOpen() {
+                return this.$store.state.global.isAppMenuOpen;
+            },
         },
         mounted(){
             window.addEventListener('resize', this.watch_resize);
@@ -197,12 +200,14 @@
         position: fixed; height: 40px; line-height: 40px; width: 100%; z-index: 1001; background: #ffffff; color: #494949;top: 60px; transition: top .4s;font-size: 14px;
     }
     .subnav {
-        position: relative; padding: 0 74px 0 45px;
+        box-sizing: border-box; 
+        position: relative; 
+        padding: 0 74px 0 45px;
         .line-lf {
             border-left: 1px solid #c5d7e5;
         }
         .close-all {
-            position: absolute; top: 0; right: 0; font-size: 12px; padding: 0 10px; color: $-color-label; cursor: pointer;&:hover{ background: #e9ecf0;}
+            position: absolute; top: 0; right: 180px; font-size: 12px; padding: 0 10px; color: $-color-label; cursor: pointer;&:hover{ background: #e9ecf0;}
         }
         .close-all-bg{
             background: #e9ecf0;
@@ -217,7 +222,7 @@
             }
         }
         .icon-more {
-            right: 32px;
+            right: 212px;
             &:hover{
                 background: #e9ecf0;
             }
@@ -267,7 +272,7 @@
         .allClose{
             position: absolute;
             background: #fff;
-            right: 0;
+            right: 180px;
             top: 42px;
             border: 1px solid #ccc;
             width: 130px;
@@ -283,9 +288,21 @@
                     margin-right: 10px;
                 }
                 &:hover{
-                    background: #e9ecf0;
+                    background: $-color-theme-bg;
+                    color: #fff;
                 }
             }
+        }
+    }
+    .appContent-view-close{
+        .close-all {
+            right: 60px;
+        }
+        .icon-more{
+            right: 92px;
+        }
+        .allClose{
+            right: 60px;
         }
     }
 </style>
