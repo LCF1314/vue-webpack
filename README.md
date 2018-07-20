@@ -1,7 +1,7 @@
 # vue-webpack
 vue + webpack 打包构建项目
 ## demo地址
-http://www.lw1314.cn
+https://www.lw1314.cn
 ### node 版本
 node v9.5.0
 ### 安装
