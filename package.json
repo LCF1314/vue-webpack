@@ -21,6 +21,7 @@
     "jsonp": "^0.2.1",
     "lodash": "^4.17.10",
     "marked": "^0.4.0",
+    "mockjs": "^1.0.1-beta3",
     "promise-polyfill": "^7.1.2",
     "sortablejs": "^1.7.0",
     "vue": "^2.5.2",
