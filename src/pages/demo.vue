@@ -57,7 +57,7 @@
                 /*log(strs)
                 let amount = eval(strs);
                 log(amount)*/
-                return eval(strs);
+                return  !(isFinite(eval(strs)) || isNaN(eval(strs))) ? eval(strs) : mull;
             },
             quchong(arr){
                 let hash = [];
@@ -79,7 +79,7 @@
             
         },
         created() {
-            let template = {
+            /*let template = {
                 'title': 'Syntax Demo',
 
                 'string1|1-10': '★',
@@ -117,23 +117,23 @@
                 }
             }
             let data = Mock.mock(template)
-            log(data)
-            // 计算数值型字段
-            // let regs =  /[()+\-*/]/g;
-            // let str = " ( price * number ) + amount / unitCodeNumber + amount * ( price + number )";
-            // let str1 = JSON.parse(JSON.stringify(str));
-            // str1 = str.replace(/[\s]/g, '');
-            // // let arrs = str1.substring(1,str.length).split(regs);
-            // arrs = Array.from(new Set(arrs)); // 数组去重
-            // // log(this.quchong(arrs))
+            log(data)*/
+            //计算数值型字段
+            let regs =  /[()+\-*/]/g;
+            let str = " ( price * number ) + amount / unitCodeNumber + amount * ( price + number )";
+            let str1 = JSON.parse(JSON.stringify(str));
+            str1 = str.replace(/[\s]/g, '');
+            let arrs = str1.substring(1,str.length).split(regs);
+            arrs = Array.from(new Set(arrs)); // 数组去重
+            // log(this.quchong(arrs))
             // this.regStr(str, obj)
-            // arrs.filter(item => !!item).forEach(item => {
-            //     this.$watch(`tableThisRow.${item}`, (newVal, oldVal) => {
-            //         if(newVal && newVal > 0 && newVal !== oldVal)
-            //         this.tableThisRow.selfAmount = this.regStr(str, this.tableThisRow);
-            //         log(this.tableThisRow)
-            //     })
-            // })
+            arrs.filter(item => !!item).forEach(item => {
+                this.$watch(`tableThisRow.${item}`, (newVal, oldVal) => {
+                    if(newVal && newVal > 0 && newVal !== oldVal)
+                    this.tableThisRow.selfAmount = this.regStr(str, this.tableThisRow);
+                    log(this.tableThisRow)
+                })
+            })
            
         },
         
