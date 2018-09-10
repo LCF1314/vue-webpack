@@ -54,10 +54,10 @@
                         }
                     })
                 }
-                /*log(strs)
+                log(strs)
                 let amount = eval(strs);
-                log(amount)*/
-                return  !(isFinite(eval(strs)) || isNaN(eval(strs))) ? eval(strs) : mull;
+                log(amount)
+                return  !(isFinite(eval(strs)) || isNaN(eval(strs))) ? eval(strs) : null;
             },
             quchong(arr){
                 let hash = [];
@@ -121,12 +121,14 @@
             //计算数值型字段
             let regs =  /[()+\-*/]/g;
             let str = " ( price * number ) + amount / unitCodeNumber + amount * ( price + number )";
+            this.regStr(str, this.tableThisRow)
+             return;
             let str1 = JSON.parse(JSON.stringify(str));
             str1 = str.replace(/[\s]/g, '');
             let arrs = str1.substring(1,str.length).split(regs);
             arrs = Array.from(new Set(arrs)); // 数组去重
             // log(this.quchong(arrs))
-            // this.regStr(str, obj)
+           
             arrs.filter(item => !!item).forEach(item => {
                 this.$watch(`tableThisRow.${item}`, (newVal, oldVal) => {
                     if(newVal && newVal > 0 && newVal !== oldVal)

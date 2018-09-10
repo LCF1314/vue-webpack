@@ -9,6 +9,10 @@
                 <div class="loginDate">
                     <span>上次登录：</span>{{lastLoginTime}}
                 </div>
+                <div class="loginLink">
+                    <a href="https://www.cnblogs.com/lcf1314/" target="_blank" title="博客园" class="iconfont blog_park">&#xe78b;</a>
+                    <a href="https://github.com/LCF1314/vue-webpack" target="_blank" title="github" class="iconfont">&#xead8;</a>
+                </div>  
             </div>
         </div>
     </section>
@@ -216,6 +220,7 @@
             width: 340px;
             height: 100%;
         }
+        
         .userMain{
             margin-top: 60px;
             height: 300px;
@@ -226,6 +231,13 @@
             text-align: center;
             padding-top:100px;
             box-sizing: border-box; 
+            .loginLink{
+                margin-top: 30px;
+                .iconfont{
+                    font-size: 22px;
+                    color: #36b1da;
+                }
+            }
             .userLogo{
                 position: absolute;
                 top: -50px;
