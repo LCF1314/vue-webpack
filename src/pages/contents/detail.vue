@@ -1,7 +1,7 @@
 <template>
     <section 
         id="app-content">
-        <order-header :btns = "['新增', '保存', '刷新']" @btn-change = "btnChange"></order-header>
+        <order-header :btns = " isAdmin ? ['新增', '保存', '刷新'] : ['刷新']" @btn-change = "btnChange"></order-header>
         <el-form ref="form" :model="form" label-width="80px" >
             <el-form-item label="标题：">
                 <el-input v-model="form.title" placeholder="请输入标题"></el-input>
@@ -63,12 +63,14 @@
             OrderHeader, quillEditor
         },
         data() {
+            const userInfo = JSON.parse(localStorage.getItem('userInfo'));
             return { 
                 content: 'I am Example',
                 editorOption: {
                     // something config
                 },
                 form: {},
+                isAdmin: userInfo.isAdmin,
                 BASE_URL: BASE_URL,
                 fileList: [{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, {name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}],
                 postData: {

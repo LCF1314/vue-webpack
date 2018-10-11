@@ -2,7 +2,7 @@
      <section 
         id="app-content" 
        >
-        <order-header :btns = "['保存', '刷新']" @btn-change = "btnChange"></order-header>
+        <order-header :btns = "isAdmin ? ['保存', '刷新'] : ['刷新']" @btn-change = "btnChange"></order-header>
         <div 
             v-loading = "loading"
             element-loading-background="rgba(0, 0, 0, 0.8)"
@@ -13,6 +13,7 @@
                     <button 
                         class="lcf-btn" 
                         type="text" 
+                        v-if="isAdmin"
                         @click.stop="deleteClick">
                         <i class="iconfont">&#xe69d;</i>批量删除
                     </button>
@@ -43,6 +44,7 @@
                 <el-table-column 
                     label="操作" 
                     align="center" 
+                    v-if="isAdmin"
                     :width="80">
                     <template slot-scope="scope">
                         <div class="table-i-box">
@@ -97,6 +99,7 @@
             OrderHeader
         },
         data() {
+            const userInfo = JSON.parse(localStorage.getItem('userInfo'));
             return { 
                 loading:false,
                 totalCount: 0,
@@ -105,6 +108,7 @@
                     pageSize: 20,
                     pageIndex: 1,
                 },
+                isAdmin: userInfo.isAdmin,
                 selectionData: [],
                 tableThisRow: null,
                 currentPage: 1,
@@ -161,6 +165,7 @@
                     _data.data.result.forEach((item , index) => {
                         const INDEXID = (this.formData.pageIndex - 1) * this.formData.pageSize + index + 1;
                         this.$set(item, 'indexId', INDEXID); // 添加下标id
+                        this.$set(item, 'password', item.isAdmin ? item.possword: '******'); // 添加下标id
                         item.lastLoginTime = item.lastLoginTime ? this.$lcf.$DC.formatDates(item.lastLoginTime) : '';
                         item.addTime = item.addTime ? this.$lcf.$DC.formatDates(item.addTime): '';
                         this.$set(item, 'edit', false);

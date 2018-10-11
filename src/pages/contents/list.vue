@@ -2,7 +2,7 @@
      <section 
         id="app-content" 
        >
-        <order-header :btns = "['新增', '刷新']" @btn-change = "btnChange"></order-header>
+        <order-header :btns = "isAdmin ? ['新增', '刷新'] : ['刷新']" @btn-change = "btnChange"></order-header>
         <div 
             v-loading = "loading"
             element-loading-background="rgba(0, 0, 0, 0.8)"
@@ -13,6 +13,7 @@
                     <button 
                         class="lcf-btn" 
                         type="text" 
+                        v-if="isAdmin"
                         @click.stop="deleteClick">
                         <i class="iconfont">&#xe69d;</i>批量删除
                     </button>
@@ -43,8 +44,9 @@
                 <el-table-column 
                     label="操作" 
                     align="center" 
+                    v-if="isAdmin"
                     :width="80">
-                    <template slot-scope="scope">
+                    <template slot-scope="scope" >
                         <div class="table-i-box">
                             <router-link  tag="a" :to="{name: '内容详情', params: {id: scope.row._id, clear: true}}">
                                 <i class="el-icon-edit table-color-info"  title="编辑"></i>
@@ -61,8 +63,15 @@
                     :width="i.width"
                     :prop="i.columnName">
                     <template  slot-scope="scope">
+                        <router-link 
+                            v-if="i.columnName === 'title'"
+                            class="a"
+                            :to="{name: '内容详情', params: {id: scope.row._id, clear: true}}">
+                            <el-button type="text" size="small">{{scope.row.title}}</el-button>
+                        </router-link>
                         <!--<div v-if="i.columnName == 'content'"  v-html="scope.row[i.columnName]" style="overflow-y:auto;"></div>-->
                         <span 
+                            v-else
                             v-text="scope.row[i.columnName] || $lcf.appEmptyPlaceholder" 
                             :title="scope.row[i.columnName]"
                             :class="{'table-color-disable': !scope.row[i.columnName]}"></span>
@@ -88,10 +97,12 @@
             OrderHeader
         },
         data() {
+            const userInfo = JSON.parse(localStorage.getItem('userInfo'));
             return { 
                 loading:false,
                 totalCount: 0,
                 tableData: [],
+                isAdmin: userInfo.isAdmin,
                 formData: {
                     pageSize: 20,
                     pageIndex: 1,
@@ -103,7 +114,7 @@
                     notes: '',
                     id: '',
                     edit: true,
-                    userId: JSON.parse(localStorage.getItem('userInfo'))._id,
+                    userId: userInfo._id,
                 },
                 selectionData: [],
                 tableThisRow: null,
@@ -139,11 +150,11 @@
                         columnName: 'username',
                         width: 120,
                     },
-                    {
+                   /* {
                         columnViewName: '内容',
                         columnName: 'content',
                         width: 420,
-                    },
+                    },*/
                 ]
             }
         },

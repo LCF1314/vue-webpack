@@ -58,8 +58,8 @@
             return { 
                 isShowNotice: false,
                 fromData: {
-                    username: 'admin' || '',
-                    password: 'admin' || '',
+                    username: 'lcf' || '',
+                    password: '123456' || '',
                     repassword: '',
                 },
                 isLogin: true,
