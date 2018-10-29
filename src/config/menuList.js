@@ -31,7 +31,7 @@ export default {
             iconfont: "&#xe61e;",
             link:'/appContent/photo'
         },
-        {
+        /*{
             name:"留言板",
             iconfont: "&#xe649;",
             link:'/appContent/loading4'
@@ -45,6 +45,6 @@ export default {
             name:"关于",
             iconfont: "&#xe642;",
             link:'/appContent/loading6'
-        },
+        },*/
     ]
 }
