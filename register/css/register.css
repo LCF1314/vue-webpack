@@ -1,0 +1,162 @@
+body, html{
+    height: 100%;
+    background-color: #2b3541;
+    overflow: hidden;
+}
+.register{
+    height: 100%;
+
+}
+h3{
+    font-family:PingFangSC-Medium;
+    font-size: 0.4rem;
+    color:#ffffff;
+    text-align:center;
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+}
+.main{
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+}
+.main div{
+    background:#445164;
+    border-radius:4px;
+    display: flex;
+    width: 85%;
+    height:1rem;
+    line-height: 1rem;
+    margin-bottom: 0.5rem;
+    /*justify-content: center;*/
+    align-items: center;
+    position: relative;
+    padding-left: 1rem;
+    box-sizing: border-box;
+    -moz-box-sizing:border-box; /* Firefox */
+    -webkit-box-sizing:border-box; /* Safari */
+}
+div p{
+    position: absolute;
+    color: red;
+    font-size: 0.2rem;
+    width: 100%;
+    height: 0.4rem;
+    line-height: 0.4rem;
+    bottom: -0.43rem;
+    display: flex;
+    left: 1rem;
+}
+div i{
+    background: url("../img/diamonds.png");
+    background-size: 22px 23px;
+    position: absolute;
+    left: 0.3rem;
+    width: 22px;
+    height: 23px;
+}
+div span{
+    position: absolute;
+    left: 1rem;
+    background: url("../img/line.png");
+    background-size: 1px 42px;
+    height: 42px;
+    width: 1px;
+}
+.phone i{
+    background: url("../img/phone.png");
+    background-size: 22px 23px;
+}
+.verification_code i{
+    background: url("../img/lock.png");
+    background-size: 22px 23px;
+}
+.password i{
+    background: url("../img/lock.png");
+    background-size: 22px 23px;
+}
+.password em.biyan{
+    background: url("../img/biyan-2.png");
+    background-size: 29px 20px;
+    width: 30px;
+    height: 20px;
+    margin-right: 0.1rem;
+}
+.password em.eyes{
+    background: url("../img/eyes.png");
+    background-size: 29px 20px;
+    width: 30px;
+    height: 20px;
+    margin-right: 0.1rem;
+}
+.main input{
+    height: 100%;
+    line-height: 100%;
+    width: 90%;
+    background: #445164;
+    border: none;
+    color: #fff;
+    margin-left: 0.2rem;
+    -webkit-appearance: none;
+}
+/*::selection {
+    background:#d3d3d3;
+    color:#ccc;
+}
+
+::-moz-selection {
+    background:#d3d3d3;
+    color:#ccc;
+}
+
+::-webkit-selection {
+    background:#d3d3d3;
+    color:#ccc;
+}*/
+
+input:-webkit-autofill {color: #fff; box-shadow: 0 0 0px 1000px #445164 inset !important;}
+.phone input{
+    width: 80%;
+    margin-left: 0.15rem;
+}
+::-webkit-input-placeholder {
+    color: #c0c0c0;
+}
+:-moz-placeholder {/* Firefox 18- */
+    color: #c0c0c0;
+}
+::-moz-placeholder{/* Firefox 19+ */
+    color: #c0c0c0;
+}
+:-ms-input-placeholder {
+    color: #c0c0c0;
+}
+.phone .btn{
+    color:#4198e7;
+    text-align: center;
+    font-size: 0.2rem;
+    position: absolute;
+    right: 0;
+    width: 1rem;
+}
+.phone{
+    padding-right: 0.1rem;
+}
+.phone strong{
+    position: absolute;
+    background: url("../img/line.png");
+    background-size: 1px 42px;
+    height: 42px;
+    width: 1px;
+    right: 1rem;
+}
+.register_m{
+    border: none;
+    outline: none;
+    background:#4198e7;
+    border-radius:0.4rem;
+    width: 85%;
+    height:0.63rem;
+    color: #fff;
+    font-size: 0.3rem;
+}

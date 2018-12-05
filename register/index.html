@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>库管王bom软件系统_物料清单|进销存|仓库库存管理软件_进销库存管理系统</title>
+    <meta name="keywords" content="在线进销存系统_进销存软件_进销存成仓库管理_仓储管理_工厂仓库管理系统_商品库存系统_bom系统_物料清单计算_ERP软件_好用的ERP软件_库管王登录_库管系统">
+    <meta name="description" content="库存管理系统,在线进销库存管理系统。什么云进销存软件好用?库管系统,工厂仓管软件,商品库存管理软件,工厂仓库管理系统,在线进销存报表,库房管理出入库管理，仓储管理在线云进销存，库房管理、物料管理、仓库管理、物料清单管理就选库管王仓库管理系统。">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <!-- 是否启动webapp功能，会删除默认的苹果工具栏和菜单栏。 -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- 这个主要是根据实际的页面设计的主体色为搭配来进行设置。 -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <!-- 忽略页面中的数字识别为电话号码,email识别 -->
+    <meta name="format-detection"content="telephone=no, email=no" />
+    <!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="renderer" content="webkit">
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+    <meta name="HandheldFriendly" content="true">
+    <!-- 微软的老式浏览器 -->
+    <meta name="MobileOptimized" content="320">
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC应用模式 -->
+    <meta name="browsermode" content="application">
+    <!-- QQ应用模式 -->
+    <meta name="x5-page-mode" content="app">
+    <!-- windows phone 点击无高光 -->
+    <meta name="msapplication-tap-highlight" content="no">
+    <script>
+        (function() {
+            var baseFontSize = 50;
+            var baseWidth = 320;
+            var clientWidth = document.documentElement.clientWidth || window.innerWidth;
+            var innerWidth = Math.max(Math.min(clientWidth, 480), 320);
+            var rem = 50;
+            if (innerWidth > 362 && innerWidth <= 375) {
+                rem = Math.floor(innerWidth / baseWidth * baseFontSize * 0.9);
+            }
+            if (innerWidth > 375) {
+                rem = Math.floor(innerWidth / baseWidth * baseFontSize * 0.84);
+            }
+            window.__baseREM = rem;
+            document.querySelector('html').style.fontSize = rem + 'px';
+            // 禁用缩放
+            document.documentElement.addEventListener('touchstart', function (event) {
+                if (event.touches.length > 1) {
+                    event.preventDefault();
+                }
+            }, false);
+        }());
+    </script>
+  <link rel="stylesheet" href="./css/m_reset.css"/>
+  <link rel="stylesheet" href="./css/register.css"/>
+  </head>
+  <body>
+    <section class="register">
+        <div class="main">
+            <h3>注册</h3>
+            <div class="clentName">
+                <i></i>
+                <span></span>
+                <input id="clientName" type="text" placeholder="请输入企业名称"/>
+                <p class="clientName_error"></p>
+            </div>
+            <div class="phone">
+                <i></i>
+                <span></span>
+                <input id="newUserMobile" class="telNumber"  type="tel" placeholder="请输入手机号"/>
+                <strong class="line1"></strong>
+                <b id="newUserGetCheck" class="btn">验证码</b>
+                <p class="newUserMobile_error"></p>
+            </div>
+            <div class="verification_code">
+                <i></i>
+                <span></span>
+                <input  id="newUserMobileCode" type="text" placeholder="请输入验证码"/>
+                <p class="newUserMobileCode_error"></p>
+            </div>
+            <div class="password">
+                <i></i>
+                <span></span>
+                <input id="newUserPsw" type="password" placeholder="请输入密码"/>
+                <em class="biyan"></em>
+                <p class="newUserPsw_error"></p>
+            </div>
+            <div  class="password">
+                <i></i>
+                <span></span>
+                <input id="reNewUserPsw" type="password" placeholder="请再次输入密码"/>
+                <em class="biyan"></em>
+                <p class="reNewUserPsw_error"></p>
+            </div>
+            <button id="registerBtn" class="register_m btn">注册</button>
+
+        </div>
+    </section>
+  </body>
+</html>
+<script src="./js/zepto/zepto.min.js"></script>
+<script src="./js/zepto/touch.js"></script>
+<script src="./js/register.js"></script>
